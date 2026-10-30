@@ -48,6 +48,17 @@ AI Study Coach: an app for Egyptian university students. Three ML models:
 - Random seed 42 everywhere. Splits are by student, speaker or lecture — never by random row.
 - Every cleaning or feature function gets a unit test in `ml_core/tests/`.
 - Notebooks are for looking only. Anything that changes data runs from the command line.
+- No `print` in `ml_core/`; use `logging`.
+- No new library without asking Omar; add it to `pyproject.toml` in the same PR.
+
+## Deployment rules (full version: README section 5)
+
+- Week 1: data work merges into `main`; no deployments. From Week 2: `dev` = staging (auto-deploy), `main` = production (weekly release by Omar).
+- Trained models are saved as `<model>_model_v<n>/` in DVC with a `model_card.md`.
+- The worker picks model versions from env vars `KNOWLEDGE_MODEL_VERSION`, `SPEECH_MODEL_VERSION`, `TOPICS_MODEL_VERSION` (`stub`, `v1`, …). Never hard-code a model version or path.
+- A model replaces its stub only if it beats the stub on the test set, passes the contract tests, meets its speed target and runs a full day on staging.
+- Database changes are new numbered files in `db/migrations/`; changes to `quiz_attempts`, `lecture_chunks` or `course_topics` update `ml_core/schemas.py` in the same PR.
+- Never commit `.env` or any key. A leaked key is revoked the same day.
 
 ## Data rules
 

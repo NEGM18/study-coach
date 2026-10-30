@@ -4,7 +4,8 @@ Every task is a GitHub issue, every change is a pull request, and nothing reache
 
 ## Branches
 
-- `main` is protected. Merge only through reviewed PRs.
+- `main` = production. Week 1: all data work merges here through reviewed PRs.
+- `dev` = staging, created in Week 2 when app code starts. Full deployment rules: README section 5.
 - Work branches start from the latest `main`: `data/<model>-<task>` (Week 1) or `feature/<issue>-<short-name>` / `fix/<issue>-<short-name>` (from Week 2).
 
 ## Commits

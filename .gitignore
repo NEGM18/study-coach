@@ -20,9 +20,21 @@ __pycache__/
 *.egg-info/
 .ipynb_checkpoints/
 
-# Node
+# Flutter / Dart (apps/mobile)
+apps/mobile/.dart_tool/
+apps/mobile/build/
+apps/mobile/.flutter-plugins
+apps/mobile/.flutter-plugins-dependencies
+apps/mobile/config/*.json
+!apps/mobile/config/*.json.example
+apps/mobile/android/key.properties
+*.jks
+*.keystore
+apps/mobile/ios/Pods/
+*.iml
+
+# Node (tooling only)
 node_modules/
-.next/
 
 # OS / editors
 .DS_Store

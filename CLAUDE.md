@@ -51,9 +51,22 @@ AI Study Coach: an app for Egyptian university students. Three ML models:
 - No `print` in `ml_core/`; use `logging`.
 - No new library without asking Omar; add it to `pyproject.toml` in the same PR.
 
+## Flutter app (`apps/mobile/`, full version: README section 3.6)
+
+- Stack: Flutter stable, Riverpod, go_router, dio, supabase_flutter (auth only), freezed + json_serializable, very_good_analysis.
+- Dart naming: files and folders snake_case; classes and widgets UpperCamelCase; variables, functions and constants lowerCamelCase; booleans `is`/`has`; suffix by kind (`QuizScreen`, `QuizCard`, `quizProvider`).
+- Feature-first: `lib/features/<feature>/{data,domain,presentation}`; shared code in `lib/core/`. Features never import another feature's `data/`.
+- The app never calls Gemini or a model directly; only our API through `core/network/api_client.dart`.
+- JSON on the wire is snake_case: `@JsonSerializable(fieldRename: FieldRename.snake)`.
+- Arabic first, RTL: all strings in `lib/l10n/*.arb`; use `EdgeInsetsDirectional` / `AlignmentDirectional`, never left/right.
+- No business logic in widgets. Don't edit `*.g.dart` / `*.freezed.dart`; run `dart run build_runner build`.
+- Config only via `--dart-define-from-file=config/<flavor>.json` (`API_BASE_URL`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `FLAVOR`). Never put a secret in the app.
+- `dart format`, `flutter analyze --fatal-infos` and `flutter test` must pass.
+
 ## Deployment rules (full version: README section 5)
 
-- Week 1: data work merges into `main`; no deployments. From Week 2: `dev` = staging (auto-deploy), `main` = production (weekly release by Omar).
+- Week 1: data work merges into `main`; no deployments. From Week 2: `dev` = staging (API and worker auto-deploy; app test builds via Firebase App Distribution), `main` = production (weekly release by Omar; app on Google Play internal testing during the pilot).
+- The API under `/api/v1` only adds fields; never rename or remove one while an older app version is installed.
 - Trained models are saved as `<model>_model_v<n>/` in DVC with a `model_card.md`.
 - The worker picks model versions from env vars `KNOWLEDGE_MODEL_VERSION`, `SPEECH_MODEL_VERSION`, `TOPICS_MODEL_VERSION` (`stub`, `v1`, …). Never hard-code a model version or path.
 - A model replaces its stub only if it beats the stub on the test set, passes the contract tests, meets its speed target and runs a full day on staging.

@@ -1,0 +1,30 @@
+# Data: tracked with DVC, never Git
+/ml/data/
+*.parquet
+*.flac
+*.wav
+*.m4a
+*.mp3
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.ipynb_checkpoints/
+
+# Node
+node_modules/
+.next/
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/

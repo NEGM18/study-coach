@@ -1,5 +1,10 @@
-# Data: tracked with DVC, never Git
-/ml/data/
+# Data: tracked with DVC, never Git.
+# Everything under ml/data/ is ignored EXCEPT the small .dvc pointer files
+# and the .gitignore files DVC writes, so each dataset gets its own pointer.
+/ml/data/**
+!/ml/data/**/
+!/ml/data/**/*.dvc
+!/ml/data/**/.gitignore
 *.parquet
 *.flac
 *.wav

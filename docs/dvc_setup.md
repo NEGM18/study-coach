@@ -26,8 +26,11 @@ Share this section in the team chat after the PR merges.
 2. Use a team Google Cloud project with the Drive API enabled and a Desktop OAuth
    client. DVC's default Google OAuth client is affected by a Google block; see
    the [DVC Google Drive guide](https://doc.dvc.org/user-guide/data-management/remote-storage/google-drive).
-   If the OAuth app is External and in Testing, add teammates as
-   [test users](https://support.google.com/cloud/answer/15549945?hl=en).
+   Set the OAuth app's publishing status to **In production**. In Testing,
+   Google expires each login after 7 days, so everyone would have to sign in
+   again every week. Because the app is unverified, each teammate sees a
+   "Google hasn't verified this app" screen once: click **Advanced**, then
+   continue.
 3. Share the team's OAuth client credentials privately. Each teammate runs:
 
    ```powershell
@@ -48,40 +51,38 @@ Share this section in the team chat after the PR merges.
    Confirm that `uv run dvc pull` actually downloads objects, then report its
    result, Git commit, and tracked dataset path in chat as download proof.
 
-## Publishing data later
+## Publishing a dataset
 
-When the first approved dataset is ready, its owner can track the whole data
-directory and push it:
+Track **each dataset separately**, never the whole `ml/data` folder. One pointer
+per dataset means pairs never edit the same file, and anyone can pull just the
+data they need.
 
 ```powershell
-uv run dvc add ml/data
+# Example: Hager adds the raw Model A data
+uv run dvc add ml/data/raw/knowledge
 uv run dvc push
-git add ml/data.dvc
+git add ml/data/raw/knowledge.dvc ml/data/raw/.gitignore
+git commit -m "data(knowledge): add raw ASSISTments and EdNet"
 ```
 
-Commit the pointer through the normal reviewed PR workflow. `/ml/data/` is already
-Git-ignored; `ml/data.dvc` sits outside that directory. Future changes to data
-require updating the pointer and pushing the corresponding DVC objects before
-teammates pull. Preserve the original files in `ml/data/raw/`.
+| Model | Raw data | Processed data |
+| --- | --- | --- |
+| A — knowledge | `ml/data/raw/knowledge` | `ml/data/processed/knowledge` |
+| B — speech | `ml/data/raw/speech` | `ml/data/processed/speech` |
+| C — topics | `ml/data/raw/topics` | `ml/data/processed/topics` |
 
-## Verification and remaining proof
+Commit the `.dvc` pointer through the normal reviewed PR workflow. The root
+`.gitignore` hides every data file under `ml/data/` but keeps the `.dvc` pointers
+and DVC's own `.gitignore` files visible to Git. When a dataset changes, run
+`dvc add` and `dvc push` again before opening the PR, so teammates can pull it.
+Never edit the original files in `ml/data/raw/`.
 
-No data or pipelines are tracked yet. `uv run dvc pull` currently exits 0 with
-`Everything is up to date.`, and `uv run dvc status` reports that no data or
-pipelines are tracked. This does not exercise Drive authentication or prove
-downloads work. A pushed dataset and authenticated downloads into an empty cache
-are still needed; see [what DVC pull downloads](https://doc.dvc.org/command-reference/pull).
+To download only one model's data: `uv run dvc pull ml/data/raw/knowledge.dvc`.
 
-The local checks on Python 3.12.10 pass: `uv run ruff format` leaves 36 files
-unchanged, `uv run ruff check` passes, and `uv run pytest` reports 14 passed and
-4 expected failures for the existing model stubs. Thirteen passing cases cover
-`CleaningLog`, including CSV round trips and row-count logging.
+## Schema contract
 
-Schema contract confirmed: the project owner identifies `ml_core/schemas.py` as
-the single source of truth for these three tables. It remains unchanged and
-defines the following exact field names and types. `db/migrations/` and
-`db/seed/` contain only empty `.gitkeep` files, so there are no competing table
-definitions in this checkout:
+`ml_core/schemas.py` is the single source of truth for these app tables. Data
+and data-preparation code must use these exact field names and types:
 
 | App table | Dataclass | Current fields and types |
 | --- | --- | --- |
@@ -90,6 +91,4 @@ definitions in this checkout:
 | `course_topics` | `Topic` | `topic_id: int`, `course_id: int`, `name: str`, `description: str = ""` |
 
 App tables and data-preparation code must use these names, types, nullability,
-and defaults. Any future discrepancy requires approval before editing
-`schemas.py`. Issue #11 still needs authenticated download proof from teammates,
-Omar Negm's review, a merged PR with green CI, and issue closure with proof.
+and defaults. Any change to `schemas.py` needs Omar's approval first.

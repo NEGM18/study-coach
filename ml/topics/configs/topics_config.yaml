@@ -1,0 +1,17 @@
+# Model C (Topic Classifier) configuration
+header_repeat_ratio: 0.5
+min_letter_ratio: 0.5
+min_words: 5
+similarity_threshold: 0.90
+seed: 42
+
+# Extraction settings
+min_char_threshold: 50
+ocr_lang: "ara+eng"
+dpi: 200
+
+# Issue #27 spot check settings
+num_spot_check_chunks: 30
+spot_check_output: "ml/topics/spot_check_30.md"
+cleaning_log_path: "ml/topics/cleaning_log.csv"
+

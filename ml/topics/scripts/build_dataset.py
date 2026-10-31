@@ -76,39 +76,51 @@ def split_grouped_by_lecture(
     """Deterministically assign each unique lecture_id to train, val, or test.
 
     Ensures 0% data leakage: no two slides from the same lecture ever appear
-    in different splits.
+    in different splits, and course representations are stratified to match 70/15/15.
     """
-    rng = random.Random(seed)
-    lectures_by_course: dict[int, list[int]] = {}
+    from collections import Counter
+
+    counts = Counter(c.lecture_id for c in chunks)
+    total = len(chunks)
+    target_train = round(total * train_ratio)
+    target_val = round(total * val_ratio)
+    target_test = total - target_train - target_val
+
+    by_course: dict[int, set[int]] = {}
     for c in chunks:
-        lectures_by_course.setdefault(c.course_id, []).append(c.lecture_id)
+        by_course.setdefault(c.course_id, set()).add(c.lecture_id)
 
-    lecture_split_map: dict[int, str] = {}
-    for _course_id, lecs in sorted(lectures_by_course.items()):
-        unique_lecs = sorted(list(set(lecs)))
-        rng.shuffle(unique_lecs)
+    rng = random.Random(seed)
+    best_diff = 999999
+    best_map: dict[int, str] = {}
 
-        n = len(unique_lecs)
-        if n >= 3:
-            n_val = max(1, round(n * val_ratio))
-            n_test = max(1, round(n * (1.0 - train_ratio - val_ratio)))
-            n_train = n - n_val - n_test
-            train_lecs = set(unique_lecs[:n_train])
-            val_lecs = set(unique_lecs[n_train : n_train + n_val])
-            # Remaining lectures fall through to "test" in the loop below
-        else:
-            train_lecs = set(unique_lecs[:1])
-            val_lecs = set()
+    for _ in range(100):
+        cur_map: dict[int, str] = {}
+        tr_c, val_c, te_c = 0, 0, 0
+        for _cid, lecs in sorted(by_course.items()):
+            shuffled = sorted(list(lecs))
+            rng.shuffle(shuffled)
+            n = len(shuffled)
+            nv = max(1, round(n * val_ratio))
+            nt = max(1, round(n * (1.0 - train_ratio - val_ratio)))
+            ntr = max(1, n - nv - nt)
 
-        for lec in unique_lecs:
-            if lec in train_lecs:
-                lecture_split_map[lec] = "train"
-            elif lec in val_lecs:
-                lecture_split_map[lec] = "val"
-            else:
-                lecture_split_map[lec] = "test"
+            for lec_id in shuffled[:ntr]:
+                cur_map[lec_id] = "train"
+                tr_c += counts[lec_id]
+            for lec_id in shuffled[ntr : ntr + nv]:
+                cur_map[lec_id] = "val"
+                val_c += counts[lec_id]
+            for lec_id in shuffled[ntr + nv :]:
+                cur_map[lec_id] = "test"
+                te_c += counts[lec_id]
 
-    return lecture_split_map
+        diff = abs(tr_c - target_train) + abs(val_c - target_val) + abs(te_c - target_test)
+        if diff < best_diff:
+            best_diff = diff
+            best_map = cur_map
+
+    return best_map
 
 
 def build_and_save_dataset(

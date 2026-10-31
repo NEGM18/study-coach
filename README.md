@@ -299,7 +299,7 @@ pip install uv                          # once
 uv sync --extra dev                     # ml_core + test tools; add --extra speech or --extra topics as needed
 uv run pytest                           # passes, with contract tests marked xfail until stubs exist
 uv run ruff check . && uv run ruff format --check .
-dvc pull                                # once Amr has set up the DVC remote (issue #11)
+uv run dvc pull                         # setup and Google authentication: docs/dvc_setup.md (issue #11)
 
 # Mobile app (from Week 2, after the Flutter project is created — see apps/mobile/README.md)
 cd apps/mobile

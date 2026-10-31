@@ -10,6 +10,8 @@
 *.wav
 *.m4a
 *.mp3
+# Small synthetic test clips are the one exception (see tests/fixtures/README.md).
+!tests/fixtures/*.flac
 
 # Secrets
 .env

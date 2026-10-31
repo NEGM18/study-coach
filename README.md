@@ -297,6 +297,7 @@ git clone https://github.com/NEGM18/study-coach.git
 cd study-coach
 pip install uv                          # once
 uv sync --extra dev                     # ml_core + test tools; add --extra speech or --extra topics as needed
+                                        # model B: .m4a recordings also need ffmpeg on PATH (winget install ffmpeg)
 uv run pytest                           # passes, with contract tests marked xfail until stubs exist
 uv run ruff check . && uv run ruff format --check .
 uv run dvc pull                         # setup and Google authentication: docs/dvc_setup.md (issue #11)

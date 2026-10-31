@@ -1,0 +1,1278 @@
+[
+  {
+    "id": "c_ai_l301_s01",
+    "data": {
+      "chunk_id": "c_ai_l301_s01",
+      "course_id": 3,
+      "lecture_id": 301,
+      "slide_no": 1,
+      "text": "cs482 artificial intelligence overview welcome to ai and machine learning. instructor: dr. sherif nabil - grading: 25% project, 25% midterm, 50% final.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.7151,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "313"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l301_s02",
+    "data": {
+      "chunk_id": "c_ai_l301_s02",
+      "course_id": 3,
+      "lecture_id": 301,
+      "slide_no": 2,
+      "text": "intelligent agents and peas rational agent selects action to maximize expected performance measure. peas formulation: performance, environment, actuators, sensors. environment properties: fully/partially observable, deterministic/stochastic, static/dynamic.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "301"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l301_s03",
+    "data": {
+      "chunk_id": "c_ai_l301_s03",
+      "course_id": 3,
+      "lecture_id": 301,
+      "slide_no": 3,
+      "text": "uninformed search bfs and dfs breadth-first search (bfs) expands shallowest nodes using fifo queue; optimal for unit step cost. depth-first search (dfs) expands deepest nodes using lifo stack; space complexity o(bm). uniform cost search expands node with lowest path cost g(n).",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "302"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l302_s01",
+    "data": {
+      "chunk_id": "c_ai_l302_s01",
+      "course_id": 3,
+      "lecture_id": 302,
+      "slide_no": 1,
+      "text": "informed search and heuristics heuristic function h(n) estimates cost from n to goal. greedy best-first search minimizes h(n). a* search minimizes f(n) = g(n) + h(n). admissible heuristic never overestimates actual cost: h(n) <= h*(n).",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "303"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l302_s02",
+    "data": {
+      "chunk_id": "c_ai_l302_s02",
+      "course_id": 3,
+      "lecture_id": 302,
+      "slide_no": 2,
+      "text": "adversarial search and minimax two-player zero-sum games with perfect information (chess, tic-tac-toe). minimax algorithm computes optimal decision under assumption of optimal opponent play. alpha-beta pruning prunes branches without affecting final decision.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "304"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l302_s03",
+    "data": {
+      "chunk_id": "c_ai_l302_s03",
+      "course_id": 3,
+      "lecture_id": 302,
+      "slide_no": 3,
+      "text": "heuristic search a star algorithm fin) = gin) + hin) admissible heuristic ara bic: beeeeeed geer bon",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "303"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l303_s01",
+    "data": {
+      "chunk_id": "c_ai_l303_s01",
+      "course_id": 3,
+      "lecture_id": 303,
+      "slide_no": 1,
+      "text": "cs482 constraint satisfaction and logic csps and propositional logic. course material:",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.8143,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "306"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l303_s02",
+    "data": {
+      "chunk_id": "c_ai_l303_s02",
+      "course_id": 3,
+      "lecture_id": 303,
+      "slide_no": 2,
+      "text": "constraint satisfaction problems csp variables x, domains d, constraints c. arc consistency with ac-3 eliminates domain values that violate constraints. backtracking search with minimum remaining values (mrv) heuristic.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "305"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l303_s03",
+    "data": {
+      "chunk_id": "c_ai_l303_s03",
+      "course_id": 3,
+      "lecture_id": 303,
+      "slide_no": 3,
+      "text": "propositional and first-order logic syntax, semantics, truth tables, entailment. conjunctive normal form (cnf) and resolution refutation theorem proving. first-order logic includes predicates, functions, and quantifiers (forall, exists).",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "306"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l304_s01",
+    "data": {
+      "chunk_id": "c_ai_l304_s01",
+      "course_id": 3,
+      "lecture_id": 304,
+      "slide_no": 1,
+      "text": "machine learning foundations overview of supervised and unsupervised learning.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.3786,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "310"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l304_s02",
+    "data": {
+      "chunk_id": "c_ai_l304_s02",
+      "course_id": 3,
+      "lecture_id": 304,
+      "slide_no": 2,
+      "text": "supervised learning: regression and classification learning mapping from input x to output y using labeled training data. linear regression predicts continuous targets using mse loss. logistic regression predicts discrete class probabilities using sigmoid and cross-entropy.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "310"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ai_l304_s03",
+    "data": {
+      "chunk_id": "c_ai_l304_s03",
+      "course_id": 3,
+      "lecture_id": 304,
+      "slide_no": 3,
+      "text": "neural networks and deep learning perceptron combines weighted inputs with activation function. multi-layer perceptron (mlp) with hidden layers overcomes non-linear boundaries. backpropagation algorithm calculates error gradients using chain rule.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.8902,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "312"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l101_s01",
+    "data": {
+      "chunk_id": "c_ds_l101_s01",
+      "course_id": 1,
+      "lecture_id": 101,
+      "slide_no": 1,
+      "text": "cs201 data structures course info course syllabus and logistics instructor: dr. ahmed hassan - contact: grading: 30% midterm, 30% labs, 40% final exam.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.8053,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "113"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l101_s02",
+    "data": {
+      "chunk_id": "c_ds_l101_s02",
+      "course_id": 1,
+      "lecture_id": 101,
+      "slide_no": 2,
+      "text": "asymptotic analysis and big-o big-o notation measures algorithmic growth rate as input n grows to infinity. we ignore constant factors and lower-order terms.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "112"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l101_s03",
+    "data": {
+      "chunk_id": "c_ds_l101_s03",
+      "course_id": 1,
+      "lecture_id": 101,
+      "slide_no": 3,
+      "text": "arrays and memory layout arrays allocate contiguous memory blocks for elements. random access lookup takes o(1) time complexity. index calculation: base_address + index * element_size.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "101"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l101_s04",
+    "data": {
+      "chunk_id": "c_ds_l101_s04",
+      "course_id": 1,
+      "lecture_id": 101,
+      "slide_no": 4,
+      "text": "dynamic arrays and resizing dynamic array automatically expands when full. doubling capacity strategy achieves amortized o(1) push_back. copying elements takes o(n) during the reallocation step.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.9247,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "101"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l101_s05",
+    "data": {
+      "chunk_id": "c_ds_l101_s05",
+      "course_id": 1,
+      "lecture_id": 101,
+      "slide_no": 5,
+      "text": "short summary done for today.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.2068,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "110"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l102_s01",
+    "data": {
+      "chunk_id": "c_ds_l102_s01",
+      "course_id": 1,
+      "lecture_id": 102,
+      "slide_no": 1,
+      "text": "lecture 2: pointer-based structures today we cover singly, doubly linked lists, stacks, and queues.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.8533,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "102"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l102_s02",
+    "data": {
+      "chunk_id": "c_ds_l102_s02",
+      "course_id": 1,
+      "lecture_id": 102,
+      "slide_no": 2,
+      "text": "singly linked lists operations node contains value and next pointer. insert at head: o(1) time by re-pointing head. traversal and search take o(n) time.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.732,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "102"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l102_s03",
+    "data": {
+      "chunk_id": "c_ds_l102_s03",
+      "course_id": 1,
+      "lecture_id": 102,
+      "slide_no": 3,
+      "text": "doubly linked lists each node maintains next and prev pointers. enables bidirectional traversal and o(1) deletion given node pointer. extra memory overhead for the backward pointer.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.9232,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "102"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l102_s04",
+    "data": {
+      "chunk_id": "c_ds_l102_s04",
+      "course_id": 1,
+      "lecture_id": 102,
+      "slide_no": 4,
+      "text": "stack adt and applications lifo: last in first out. push and pop operations operate at top in o(1) time. used for parentheses matching, expression evaluation, and call stack.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.5678,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "103"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l102_s05",
+    "data": {
+      "chunk_id": "c_ds_l102_s05",
+      "course_id": 1,
+      "lecture_id": 102,
+      "slide_no": 5,
+      "text": "queue adt and circular buffer fifo: first in first out. enqueue at tail, dequeue at head in o(1) time. circular array queue prevents memory drift.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.5591,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "103"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l102_s06",
+    "data": {
+      "chunk_id": "c_ds_l102_s06",
+      "course_id": 1,
+      "lecture_id": 102,
+      "slide_no": 6,
+      "text": "binary search trees bst invariant node x has lett < xand right ‏د‎ * ara bic: bee bee gee",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.8574,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "105"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l103_s01",
+    "data": {
+      "chunk_id": "c_ds_l103_s01",
+      "course_id": 1,
+      "lecture_id": 103,
+      "slide_no": 1,
+      "text": "cs201 lecture 3: trees and bst binary trees and tree traversals visit course site at",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.8653,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "105"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l103_s02",
+    "data": {
+      "chunk_id": "c_ds_l103_s02",
+      "course_id": 1,
+      "lecture_id": 103,
+      "slide_no": 2,
+      "text": "binary tree traversals preorder: root, left, right inorder: left, root, right (yields sorted order in bst) postorder: left, right, root level-order: breadth-first traversal using a queue.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.8393,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "105"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l103_s03",
+    "data": {
+      "chunk_id": "c_ds_l103_s03",
+      "course_id": 1,
+      "lecture_id": 103,
+      "slide_no": 3,
+      "text": "balanced trees: avl and rotations avl tree maintains balance factor in {-1, 0, 1}. rotations (ll, rr, lr, rl) restore height balance after insertion. guarantees o(log n) worst-case search, insertion, and deletion.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.8113,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "106"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l103_s04",
+    "data": {
+      "chunk_id": "c_ds_l103_s04",
+      "course_id": 1,
+      "lecture_id": 103,
+      "slide_no": 4,
+      "text": "heaps and priority queues binary max-heap: parent >= children. complete binary tree stored efficiently in an array. heapify in o(n), extract-max in o(log n) using sift-down.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.9752,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "107"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l104_s01",
+    "data": {
+      "chunk_id": "c_ds_l104_s01",
+      "course_id": 1,
+      "lecture_id": 104,
+      "slide_no": 1,
+      "text": "cs201 lecture 4: hashing and graphs advanced structures and graph theory. instructor: dr. ahmed hassan -",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.3502,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "109"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l104_s02",
+    "data": {
+      "chunk_id": "c_ds_l104_s02",
+      "course_id": 1,
+      "lecture_id": 104,
+      "slide_no": 2,
+      "text": "hash tables and collision resolution direct mapping using hash function h(key). separate chaining handles collisions via linked lists per bucket. open addressing uses linear probing: h(k, i) = (h'(k) + i) mod m. load factor alpha = n/m controls performance.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "108"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l104_s03",
+    "data": {
+      "chunk_id": "c_ds_l104_s03",
+      "course_id": 1,
+      "lecture_id": 104,
+      "slide_no": 3,
+      "text": "graphs and traversals adjacency matrix o(v^2) vs adjacency list o(v + e). breadth-first search (bfs) finds shortest paths in unweighted graphs. depth-first search (dfs) detects cycles and computes topological sort.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "109"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_ds_l104_s04",
+    "data": {
+      "chunk_id": "c_ds_l104_s04",
+      "course_id": 1,
+      "lecture_id": 104,
+      "slide_no": 4,
+      "text": "shortest paths: dijkstra algorithm single-source shortest paths with non-negative edge weights. maintains distance estimates and explores minimum using priority queue. time complexity o((v + e) log v) with binary heap.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.4877,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "110"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l201_s01",
+    "data": {
+      "chunk_id": "c_os_l201_s01",
+      "course_id": 2,
+      "lecture_id": 201,
+      "slide_no": 1,
+      "text": "cs302 operating systems welcome course syllabus and administration dr. tarek mostafa - lab sessions on mondays. grading: 20% midterm, 40% final, 40% projects. official page:",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.6221,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "213"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l201_s02",
+    "data": {
+      "chunk_id": "c_os_l201_s02",
+      "course_id": 2,
+      "lecture_id": 201,
+      "slide_no": 2,
+      "text": "operating system architecture dual mode operation: user mode (bit 1) vs kernel mode (bit 0). privileged instructions can only execute in kernel mode. trap instruction switches cpu mode safely to handle system calls.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "201"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l201_s03",
+    "data": {
+      "chunk_id": "c_os_l201_s03",
+      "course_id": 2,
+      "lecture_id": 201,
+      "slide_no": 3,
+      "text": "system calls interface standard programming interface to os services (posix api). examples: open(), read(), write(), close(), fork(). parameters passed via registers or stack block.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.3897,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "201"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l202_s01",
+    "data": {
+      "chunk_id": "c_os_l202_s01",
+      "course_id": 2,
+      "lecture_id": 202,
+      "slide_no": 1,
+      "text": "process management and pcb process is a program in execution. process control block (pcb) stores pid, state, pc, registers, memory limits. states: new, ready, running, waiting, terminated.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "202"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l202_s02",
+    "data": {
+      "chunk_id": "c_os_l202_s02",
+      "course_id": 2,
+      "lecture_id": 202,
+      "slide_no": 2,
+      "text": "process creation with fork() fork() creates an exact duplicate child process. child receives return value 0, parent receives child's pid. exec() replaces the process memory space with a new executable.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.9282,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "202"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l202_s03",
+    "data": {
+      "chunk_id": "c_os_l202_s03",
+      "course_id": 2,
+      "lecture_id": 202,
+      "slide_no": 3,
+      "text": "operating systems kernel mode system gallsand interrupt handling ara bic: 5 ‏فففة 5ف ة ة‎ gee)",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.9125,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "201"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l203_s01",
+    "data": {
+      "chunk_id": "c_os_l203_s01",
+      "course_id": 2,
+      "lecture_id": 203,
+      "slide_no": 1,
+      "text": "cs302 threads and concurrency multithreading and cpu scheduling. slides:",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.5987,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "203"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l203_s02",
+    "data": {
+      "chunk_id": "c_os_l203_s02",
+      "course_id": 2,
+      "lecture_id": 203,
+      "slide_no": 2,
+      "text": "threads vs processes threads share text segment, heap, and open files. each thread has its own thread id, program counter, registers, and stack. posix pthreads library for multi-threaded programming in c.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.7128,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "203"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l203_s03",
+    "data": {
+      "chunk_id": "c_os_l203_s03",
+      "course_id": 2,
+      "lecture_id": 203,
+      "slide_no": 3,
+      "text": "cpu scheduling algorithms first-come first-served (fcfs) suffers from convoy effect. shortest job first (sjf) gives optimal average waiting time. round robin (rr) allocates fixed time quantum q preemptively. multilevel feedback queue allows jobs to move between priority levels.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.9068,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "204"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l204_s01",
+    "data": {
+      "chunk_id": "c_os_l204_s01",
+      "course_id": 2,
+      "lecture_id": 204,
+      "slide_no": 1,
+      "text": "cs302 process synchronization critical section problem and synchronization primitives.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.8583,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "205"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l204_s02",
+    "data": {
+      "chunk_id": "c_os_l204_s02",
+      "course_id": 2,
+      "lecture_id": 204,
+      "slide_no": 2,
+      "text": "critical section and race conditions race condition occurs when concurrent threads access shared data without synchronization. critical section requirements: mutual exclusion, progress, bounded waiting. peterson's solution for two processes using turn and flag variables.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "205"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l204_s03",
+    "data": {
+      "chunk_id": "c_os_l204_s03",
+      "course_id": 2,
+      "lecture_id": 204,
+      "slide_no": 3,
+      "text": "semaphores and mutexes mutex provides binary mutual exclusion: acquire() and release(). counting semaphore initialized to resource count n. wait(s) decrements, signal(s) increments atomically.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 0.7184,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "206"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "c_os_l204_s04",
+    "data": {
+      "chunk_id": "c_os_l204_s04",
+      "course_id": 2,
+      "lecture_id": 204,
+      "slide_no": 4,
+      "text": "deadlock characterization and banker algorithm four coffman conditions: mutual exclusion, hold and wait, no preemption, circular wait. banker's algorithm tests if resource allocation state is safe. safe sequence ensures all processes can finish without deadlock.",
+      "lang": "en"
+    },
+    "predictions": [
+      {
+        "model_version": "gemini-1.5-flash-prelabel",
+        "score": 1.0,
+        "result": [
+          {
+            "from_name": "topic",
+            "to_name": "text",
+            "type": "choices",
+            "value": {
+              "choices": [
+                "207"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

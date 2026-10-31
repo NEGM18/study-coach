@@ -1,0 +1,1402 @@
+[
+  {
+    "chunk_id": "c_ds_l104_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 108,
+    "annotator_2_topic_id": 108,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 301,
+    "annotator_2_topic_id": 301,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 113,
+    "annotator_2_topic_id": 113,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l201_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 109,
+    "annotator_2_topic_id": 109,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 204,
+    "annotator_2_topic_id": 204,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 303,
+    "annotator_2_topic_id": 303,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 301,
+    "annotator_2_topic_id": 301,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s06",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 301,
+    "annotator_2_topic_id": 301,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l303_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 306,
+    "annotator_2_topic_id": 306,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 108,
+    "annotator_2_topic_id": 108,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 106,
+    "annotator_2_topic_id": 106,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 202,
+    "annotator_2_topic_id": 202,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 313,
+    "annotator_2_topic_id": 313,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 202,
+    "annotator_2_topic_id": 202,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s04",
+    "course_id": 1,
+    "annotator_1_topic_id": 110,
+    "annotator_2_topic_id": 110,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 101,
+    "annotator_2_topic_id": 101,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l303_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 306,
+    "annotator_2_topic_id": 306,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 206,
+    "annotator_2_topic_id": 206,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 101,
+    "annotator_2_topic_id": 101,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 304,
+    "annotator_2_topic_id": 304,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 304,
+    "annotator_2_topic_id": 304,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s04",
+    "course_id": 1,
+    "annotator_1_topic_id": 107,
+    "annotator_2_topic_id": 107,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 202,
+    "annotator_2_topic_id": 202,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l201_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 206,
+    "annotator_2_topic_id": 206,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s05",
+    "course_id": 1,
+    "annotator_1_topic_id": 110,
+    "annotator_2_topic_id": 110,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 109,
+    "annotator_2_topic_id": 109,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 106,
+    "annotator_2_topic_id": 106,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l201_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 213,
+    "annotator_2_topic_id": 213,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 302,
+    "annotator_2_topic_id": 302,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 113,
+    "annotator_2_topic_id": 113,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 303,
+    "annotator_2_topic_id": 303,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 304,
+    "annotator_2_topic_id": 304,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 113,
+    "annotator_2_topic_id": 113,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 109,
+    "annotator_2_topic_id": 109,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s05",
+    "course_id": 1,
+    "annotator_1_topic_id": 110,
+    "annotator_2_topic_id": 110,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s05",
+    "course_id": 1,
+    "annotator_1_topic_id": 110,
+    "annotator_2_topic_id": 110,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 312,
+    "annotator_2_topic_id": 312,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 205,
+    "annotator_2_topic_id": 205,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 108,
+    "annotator_2_topic_id": 108,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s04",
+    "course_id": 1,
+    "annotator_1_topic_id": 107,
+    "annotator_2_topic_id": 107,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l303_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 305,
+    "annotator_2_topic_id": 305,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l201_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l303_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 305,
+    "annotator_2_topic_id": 305,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s05",
+    "course_id": 1,
+    "annotator_1_topic_id": 110,
+    "annotator_2_topic_id": 110,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s04",
+    "course_id": 2,
+    "annotator_1_topic_id": 207,
+    "annotator_2_topic_id": 207,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 108,
+    "annotator_2_topic_id": 108,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s04",
+    "course_id": 1,
+    "annotator_1_topic_id": 110,
+    "annotator_2_topic_id": 110,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 202,
+    "annotator_2_topic_id": 202,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 301,
+    "annotator_2_topic_id": 301,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 112,
+    "annotator_2_topic_id": 112,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 312,
+    "annotator_2_topic_id": 312,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 205,
+    "annotator_2_topic_id": 205,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 112,
+    "annotator_2_topic_id": 112,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 108,
+    "annotator_2_topic_id": 108,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 205,
+    "annotator_2_topic_id": 205,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s04",
+    "course_id": 1,
+    "annotator_1_topic_id": 103,
+    "annotator_2_topic_id": 103,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 312,
+    "annotator_2_topic_id": 312,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 312,
+    "annotator_2_topic_id": 312,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 106,
+    "annotator_2_topic_id": 106,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 204,
+    "annotator_2_topic_id": 204,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s04",
+    "course_id": 2,
+    "annotator_1_topic_id": 207,
+    "annotator_2_topic_id": 207,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s06",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 304,
+    "annotator_2_topic_id": 304,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 302,
+    "annotator_2_topic_id": 302,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 304,
+    "annotator_2_topic_id": 304,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 109,
+    "annotator_2_topic_id": 109,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 202,
+    "annotator_2_topic_id": 202,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 302,
+    "annotator_2_topic_id": 302,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s05",
+    "course_id": 1,
+    "annotator_1_topic_id": 110,
+    "annotator_2_topic_id": 110,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s04",
+    "course_id": 2,
+    "annotator_1_topic_id": 207,
+    "annotator_2_topic_id": 207,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 206,
+    "annotator_2_topic_id": 206,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 313,
+    "annotator_2_topic_id": 313,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l201_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 213,
+    "annotator_2_topic_id": 213,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 109,
+    "annotator_2_topic_id": 109,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 312,
+    "annotator_2_topic_id": 312,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 108,
+    "annotator_2_topic_id": 108,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 304,
+    "annotator_2_topic_id": 304,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 205,
+    "annotator_2_topic_id": 205,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 312,
+    "annotator_2_topic_id": 312,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s06",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l303_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 305,
+    "annotator_2_topic_id": 305,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 205,
+    "annotator_2_topic_id": 205,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 112,
+    "annotator_2_topic_id": 112,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 108,
+    "annotator_2_topic_id": 108,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s04",
+    "course_id": 1,
+    "annotator_1_topic_id": 107,
+    "annotator_2_topic_id": 107,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l303_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 306,
+    "annotator_2_topic_id": 306,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l201_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 202,
+    "annotator_2_topic_id": 202,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 313,
+    "annotator_2_topic_id": 313,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 101,
+    "annotator_2_topic_id": 101,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 313,
+    "annotator_2_topic_id": 313,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 205,
+    "annotator_2_topic_id": 205,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 112,
+    "annotator_2_topic_id": 112,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 302,
+    "annotator_2_topic_id": 302,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 205,
+    "annotator_2_topic_id": 205,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 303,
+    "annotator_2_topic_id": 303,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s05",
+    "course_id": 1,
+    "annotator_1_topic_id": 103,
+    "annotator_2_topic_id": 103,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 303,
+    "annotator_2_topic_id": 303,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l201_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l201_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 303,
+    "annotator_2_topic_id": 303,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s04",
+    "course_id": 1,
+    "annotator_1_topic_id": 103,
+    "annotator_2_topic_id": 103,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 312,
+    "annotator_2_topic_id": 312,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l201_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l303_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 306,
+    "annotator_2_topic_id": 306,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 112,
+    "annotator_2_topic_id": 112,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s04",
+    "course_id": 2,
+    "annotator_1_topic_id": 207,
+    "annotator_2_topic_id": 207,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 108,
+    "annotator_2_topic_id": 108,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s06",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 303,
+    "annotator_2_topic_id": 303,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 101,
+    "annotator_2_topic_id": 101,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 106,
+    "annotator_2_topic_id": 106,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 303,
+    "annotator_2_topic_id": 303,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 109,
+    "annotator_2_topic_id": 109,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 204,
+    "annotator_2_topic_id": 204,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 303,
+    "annotator_2_topic_id": 303,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 109,
+    "annotator_2_topic_id": 109,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s01",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 303,
+    "annotator_2_topic_id": 303,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 205,
+    "annotator_2_topic_id": 205,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 106,
+    "annotator_2_topic_id": 106,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s04",
+    "course_id": 1,
+    "annotator_1_topic_id": 103,
+    "annotator_2_topic_id": 103,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 202,
+    "annotator_2_topic_id": 202,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 202,
+    "annotator_2_topic_id": 202,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l303_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 306,
+    "annotator_2_topic_id": 306,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 304,
+    "annotator_2_topic_id": 304,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s04",
+    "course_id": 1,
+    "annotator_1_topic_id": 103,
+    "annotator_2_topic_id": 103,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l201_s02",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l104_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 109,
+    "annotator_2_topic_id": 109,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s04",
+    "course_id": 2,
+    "annotator_1_topic_id": 207,
+    "annotator_2_topic_id": 207,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l302_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 304,
+    "annotator_2_topic_id": 304,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 101,
+    "annotator_2_topic_id": 101,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l303_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 306,
+    "annotator_2_topic_id": 306,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l101_s01",
+    "course_id": 1,
+    "annotator_1_topic_id": 113,
+    "annotator_2_topic_id": 113,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l304_s02",
+    "course_id": 3,
+    "annotator_1_topic_id": 310,
+    "annotator_2_topic_id": 310,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 205,
+    "annotator_2_topic_id": 205,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l102_s03",
+    "course_id": 1,
+    "annotator_1_topic_id": 102,
+    "annotator_2_topic_id": 102,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l203_s01",
+    "course_id": 2,
+    "annotator_1_topic_id": 203,
+    "annotator_2_topic_id": 203,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ds_l103_s02",
+    "course_id": 1,
+    "annotator_1_topic_id": 105,
+    "annotator_2_topic_id": 105,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_ai_l301_s03",
+    "course_id": 3,
+    "annotator_1_topic_id": 302,
+    "annotator_2_topic_id": 302,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l204_s04",
+    "course_id": 2,
+    "annotator_1_topic_id": 207,
+    "annotator_2_topic_id": 207,
+    "is_concordant": true
+  },
+  {
+    "chunk_id": "c_os_l202_s03",
+    "course_id": 2,
+    "annotator_1_topic_id": 201,
+    "annotator_2_topic_id": 201,
+    "is_concordant": true
+  }
+]

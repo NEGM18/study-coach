@@ -43,4 +43,3 @@ def test_normalize_eval_removes_punctuation() -> None:
     raw = "خوارزمية A*، هل هي سريعة؟ نعم!"
     expected = "خوارزميه a هل هي سريعه نعم"
     assert normalize_for_eval(raw) == expected
-

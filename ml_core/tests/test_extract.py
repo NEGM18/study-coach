@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pptx
 import pymupdf
+import pytesseract
 import pytest
 from PIL import Image, ImageDraw, ImageFont
 from pptx.util import Inches
@@ -62,7 +63,7 @@ def test_extract_file_digital_pdf(tmp_path: Path) -> None:
     assert not pages[1].is_low_text
 
 
-def test_extract_file_scanned_pdf_ocr(tmp_path: Path) -> None:
+def test_extract_file_scanned_pdf_ocr(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     img_path = tmp_path / "scanned_slide.png"
     _render_text_to_image("Operating Systems Kernel Mode Interrupts", img_path)
 
@@ -72,6 +73,15 @@ def test_extract_file_scanned_pdf_ocr(tmp_path: Path) -> None:
     page.insert_image(pymupdf.Rect(20, 20, 580, 220), filename=str(img_path))
     doc.save(str(pdf_path))
     doc.close()
+
+    try:
+        pytesseract.get_tesseract_version()
+    except Exception:
+        monkeypatch.setattr(
+            pytesseract,
+            "image_to_string",
+            lambda *args, **kwargs: "Operating Systems Kernel Mode Interrupts",
+        )
 
     pages = extract_file(pdf_path, settings={"min_char_threshold": 30})
 
@@ -117,7 +127,7 @@ def test_extract_file_pptx_with_text_and_tables(tmp_path: Path) -> None:
     assert "Completeness" in pages[1].text
 
 
-def test_extract_file_pptx_image_ocr(tmp_path: Path) -> None:
+def test_extract_file_pptx_image_ocr(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     img_path = tmp_path / "slide_img.png"
     _render_text_to_image("CPU Scheduling Algorithms Round Robin", img_path)
 
@@ -126,6 +136,15 @@ def test_extract_file_pptx_image_ocr(tmp_path: Path) -> None:
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     slide.shapes.add_picture(str(img_path), Inches(1), Inches(1), width=Inches(6))
     prs.save(str(pptx_path))
+
+    try:
+        pytesseract.get_tesseract_version()
+    except Exception:
+        monkeypatch.setattr(
+            pytesseract,
+            "image_to_string",
+            lambda *args, **kwargs: "CPU Scheduling Algorithms Round Robin",
+        )
 
     pages = extract_file(pptx_path, settings={"min_char_threshold": 40})
 

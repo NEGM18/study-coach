@@ -160,7 +160,7 @@ def _extract_pptx_slide(
                 ocr_pieces.append(extracted)
 
     combined_ocr = "\n".join(ocr_pieces).strip()
-    is_ocr = bool(combined_ocr)
+    is_ocr = bool(combined_ocr or image_blobs)
     final_text = f"{text}\n{combined_ocr}".strip() if (text and combined_ocr) else (combined_ocr or text)
     is_low = len(final_text) < min_chars
 

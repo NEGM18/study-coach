@@ -1,5 +1,9 @@
 """Unit tests for lecture text cleaning pipeline (Issues #26 & #27)."""
 
+import pytest
+
+pytest.importorskip("ml_core.topics.clean", reason="needs the topics extra: uv sync --extra topics")
+
 from ml_core.cleaning_log import CleaningLog
 from ml_core.schemas import Chunk
 from ml_core.topics.clean import (

@@ -2,10 +2,13 @@
 
 from pathlib import Path
 
+import pytest
+
+pytest.importorskip("ml_core.topics.extract", reason="needs the topics extra: uv sync --extra topics")
+
 import pptx
 import pymupdf
 import pytesseract
-import pytest
 from PIL import Image, ImageDraw, ImageFont
 from pptx.util import Inches
 

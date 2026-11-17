@@ -1,18 +1,23 @@
 """Unit tests for lecture text cleaning pipeline (Issues #26 & #27)."""
 
+import pytest
+
 from ml_core.cleaning_log import CleaningLog
 from ml_core.schemas import Chunk
-from ml_core.topics.clean import (
-    _deduplicate_chunks,
-    _detect_language,
-    _filter_short_chunks,
-    _normalize_chunks,
-    _remove_metadata,
-    _remove_ocr_garbage,
-    _remove_repeating_headers,
-    _tag_language,
-    clean_chunks,
+
+clean_mod = pytest.importorskip(
+    "ml_core.topics.clean",
+    reason="needs the topics extra: uv sync --extra topics",
 )
+_deduplicate_chunks = clean_mod._deduplicate_chunks
+_detect_language = clean_mod._detect_language
+_filter_short_chunks = clean_mod._filter_short_chunks
+_normalize_chunks = clean_mod._normalize_chunks
+_remove_metadata = clean_mod._remove_metadata
+_remove_ocr_garbage = clean_mod._remove_ocr_garbage
+_remove_repeating_headers = clean_mod._remove_repeating_headers
+_tag_language = clean_mod._tag_language
+clean_chunks = clean_mod.clean_chunks
 
 
 def test_step1_remove_repeating_headers() -> None:

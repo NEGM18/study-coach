@@ -2,24 +2,31 @@
 
 from pathlib import Path
 
-import pptx
-import pymupdf
 import pytest
-from PIL import Image, ImageDraw, ImageFont
-from pptx.util import Inches
 
-from ml_core.topics.extract import Page, extract_file
+pptx = pytest.importorskip("pptx", reason="needs the topics extra: uv sync --extra topics")
+pymupdf = pytest.importorskip("pymupdf", reason="needs the topics extra: uv sync --extra topics")
+Image = pytest.importorskip("PIL.Image", reason="needs the topics extra: uv sync --extra topics")
+ImageDraw = pytest.importorskip("PIL.ImageDraw", reason="needs the topics extra: uv sync --extra topics")
+ImageFont = pytest.importorskip("PIL.ImageFont", reason="needs the topics extra: uv sync --extra topics")
+Inches = pytest.importorskip("pptx.util", reason="needs the topics extra: uv sync --extra topics").Inches
+extract_mod = pytest.importorskip(
+    "ml_core.topics.extract",
+    reason="needs the topics extra: uv sync --extra topics",
+)
+Page = extract_mod.Page
+extract_file = extract_mod.extract_file
 
 
 def _render_text_to_image(text: str, path: Path) -> Path:
     """Helper to render synthetic text to an image file for OCR tests."""
-    img = Image.new("RGB", (600, 200), color=(255, 255, 255))
+    img = Image.new("RGB", (800, 200), color=(255, 255, 255))
     draw = ImageDraw.Draw(img)
     try:
+        font = ImageFont.load_default(size=28)
+    except TypeError:
         font = ImageFont.load_default()
-    except Exception:
-        font = None
-    draw.text((20, 20), text, fill=(0, 0, 0), font=font)
+    draw.text((20, 40), text, fill=(0, 0, 0), font=font)
     img.save(str(path))
     return path
 

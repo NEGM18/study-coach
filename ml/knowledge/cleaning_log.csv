@@ -1,0 +1,7 @@
+dataset,step,rows_before,rows_after,reason
+knowledge_assistments,keep original problems,346860,275458,scaffolding rows are hints
+knowledge_assistments,drop missing skill_id,275458,259399,topic_id is required
+knowledge_assistments,drop duplicate order_id,259399,259399,multi-skill rows repeat one answer
+knowledge_assistments,drop response time <= 0,259399,259084,non-positive times are logging errors
+knowledge_assistments,drop students with < 10 answers,259084,253373,too little history
+knowledge_assistments,drop skills with < 20 answers,253373,253278,too few answers to estimate the skill

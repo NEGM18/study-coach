@@ -1,19 +1,14 @@
 """Contract tests: every predict() must return valid app-shaped output.
 
-They are marked xfail until each stub exists; remove the marker in your PR.
+All three Week 1 stubs exist, so every contract test must pass.
 """
-
-import pytest
 
 from ml_core.knowledge.predict import predict_mastery
 from ml_core.schemas import Attempt, Chunk, Segment, Topic, TopicPrediction
 from ml_core.speech.predict import transcribe
 from ml_core.topics.predict import classify_chunks
 
-pending = pytest.mark.xfail(raises=NotImplementedError, reason="stub not built yet", strict=False)
 
-
-@pending
 def test_predict_mastery_returns_probability():
     history = [
         Attempt(user_id="u1", topic_id=7, question_id=1, attempt_order=1, is_correct=False),
@@ -23,12 +18,10 @@ def test_predict_mastery_returns_probability():
     assert 0.0 <= p <= 1.0
 
 
-@pending
 def test_predict_mastery_handles_empty_history():
     assert 0.0 <= predict_mastery([], topic_id=7) <= 1.0
 
 
-@pending
 def test_transcribe_returns_ordered_segments(tmp_path):
     fixture = "tests/fixtures/speech_sample_01.flac"
     segments = transcribe(fixture)

@@ -1,0 +1,6 @@
+dataset,step,rows_before,rows_after,reason
+knowledge_ednet,drop missing skill_id,652345,652225,topic_id is required
+knowledge_ednet,drop duplicate order_id,652225,652225,multi-skill rows repeat one answer
+knowledge_ednet,drop response time <= 0,652225,650666,non-positive times are logging errors
+knowledge_ednet,drop students with < 10 answers,650666,638684,too little history
+knowledge_ednet,drop skills with < 20 answers,638684,638684,too few answers to estimate the skill

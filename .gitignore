@@ -5,6 +5,7 @@
 !/ml/data/**/
 !/ml/data/**/*.dvc
 !/ml/data/**/.gitignore
+*.csv
 *.parquet
 *.flac
 *.wav

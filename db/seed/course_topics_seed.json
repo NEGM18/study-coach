@@ -1,0 +1,301 @@
+{
+  "courses": [
+    {
+      "course_id": 1,
+      "code": "ds",
+      "name": "Data Structures & Algorithms",
+      "name_ar": "هياكل البيانات والخوارزميات",
+      "description": "Fundamental linear and non-linear data structures, algorithmic paradigms, and complexity analysis."
+    },
+    {
+      "course_id": 2,
+      "code": "os",
+      "name": "Operating Systems",
+      "name_ar": "نظم التشغيل",
+      "description": "Operating system concepts, processes, threads, CPU scheduling, concurrency, deadlocks, and memory virtualization."
+    },
+    {
+      "course_id": 3,
+      "code": "ai",
+      "name": "Artificial Intelligence & Machine Learning",
+      "name_ar": "الذكاء الاصطناعي وتعلم الآلة",
+      "description": "State space search, game playing, constraint satisfaction, logical inference, and foundational machine learning."
+    }
+  ],
+  "topics": [
+    {
+      "topic_id": 101,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Arrays and Dynamic Arrays",
+      "description": "Contiguous memory allocation, random access time complexity O(1), amortized resizing analysis, and array manipulations."
+    },
+    {
+      "topic_id": 102,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Linked Lists",
+      "description": "Singly, doubly, and circular linked lists; pointer manipulation, traversal, insertion, deletion, and cycle detection."
+    },
+    {
+      "topic_id": 103,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Stacks and Queues",
+      "description": "LIFO/FIFO abstract data types, array and pointer implementations, expression parsing, and priority queue primitives."
+    },
+    {
+      "topic_id": 104,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Recursion and Backtracking",
+      "description": "Recursive calls, base cases, call stack unwinding, recurrence relations, and depth-first exhaustive search."
+    },
+    {
+      "topic_id": 105,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Trees and Binary Search Trees",
+      "description": "Hierarchical structures, tree traversals (inorder, preorder, postorder), binary search tree invariant, and node operations."
+    },
+    {
+      "topic_id": 106,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Balanced Trees",
+      "description": "Self-balancing binary search trees (AVL trees, Red-Black trees), tree rotations, and guaranteed O(log n) height."
+    },
+    {
+      "topic_id": 107,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Heaps and Priority Queues",
+      "description": "Binary min-heaps and max-heaps, complete binary tree array representation, heapify operations, and heapsort."
+    },
+    {
+      "topic_id": 108,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Hash Tables and Hashing",
+      "description": "Hash functions, collision resolution mechanisms (chaining, open addressing with linear/quadratic probing), and load factor."
+    },
+    {
+      "topic_id": 109,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Graphs and Graph Traversals",
+      "description": "Adjacency matrix vs adjacency list, breadth-first search (BFS), depth-first search (DFS), and topological sort."
+    },
+    {
+      "topic_id": 110,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Shortest Paths and Minimum Spanning Trees",
+      "description": "Dijkstra's algorithm, Bellman-Ford, Prim's and Kruskal's algorithms for minimum spanning trees, and disjoint-set union."
+    },
+    {
+      "topic_id": 111,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Sorting and Searching Algorithms",
+      "description": "Merge sort, quick sort, binary search, counting sort, radix sort, and lower bound of comparison-based sorting."
+    },
+    {
+      "topic_id": 112,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "Asymptotic Analysis and Big-O",
+      "description": "Growth of functions, Big-O, Big-Omega, Big-Theta notations, time and space complexity, and recurrence master theorem."
+    },
+    {
+      "topic_id": 113,
+      "course_id": 1,
+      "course_code": "ds",
+      "name": "other",
+      "description": "Non-content slides: syllabus overview, grading policy, exam schedules, book recommendations, title slides, and logistics."
+    },
+    {
+      "topic_id": 201,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "OS Architecture and System Calls",
+      "description": "Kernel vs user mode, dual-mode operation, system calls, interrupt handling, traps, and OS structures (monolithic vs microkernel)."
+    },
+    {
+      "topic_id": 202,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "Processes and Process Management",
+      "description": "Process control block (PCB), process state transitions, context switching, process creation (fork/exec), and IPC mechanisms."
+    },
+    {
+      "topic_id": 203,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "Threads and Concurrency",
+      "description": "User-level vs kernel-level threads, multithreading models (M:1, 1:1, M:N), thread pools, and POSIX pthread programming."
+    },
+    {
+      "topic_id": 204,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "CPU Scheduling Algorithms",
+      "description": "Preemptive vs non-preemptive scheduling, FCFS, SJF, Round Robin, Priority Scheduling, and Multi-Level Feedback Queues."
+    },
+    {
+      "topic_id": 205,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "Process Synchronization and Mutexes",
+      "description": "Critical section problem, race conditions, mutual exclusion conditions, Peterson's solution, and hardware atomic instructions."
+    },
+    {
+      "topic_id": 206,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "Semaphores and Monitors",
+      "description": "Counting and binary semaphores, wait() and signal() primitives, condition variables, and classic synchronization problems."
+    },
+    {
+      "topic_id": 207,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "Deadlocks",
+      "description": "Four Coffman conditions, resource allocation graphs, deadlock prevention, avoidance with Banker's algorithm, and detection."
+    },
+    {
+      "topic_id": 208,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "Main Memory Management and Paging",
+      "description": "Contiguous memory allocation, fragmentation (internal/external), paging architecture, page table entries, and TLB caching."
+    },
+    {
+      "topic_id": 209,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "Virtual Memory and Page Replacement",
+      "description": "Demand paging, page faults, Belady's anomaly, FIFO, Optimal, LRU, Second-chance page replacement, and thrashing."
+    },
+    {
+      "topic_id": 210,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "File System Interface and Implementation",
+      "description": "Directory structures, inodes, file allocation methods (contiguous, linked, indexed), free-space management, and journaling."
+    },
+    {
+      "topic_id": 211,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "Mass-Storage and Disk Scheduling",
+      "description": "Magnetic disks, SSD characteristics, RAID levels, and disk arm scheduling algorithms (FCFS, SSTF, SCAN, C-SCAN, LOOK)."
+    },
+    {
+      "topic_id": 212,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "I/O Systems and Device Management",
+      "description": "I/O hardware, polling vs interrupts, direct memory access (DMA), kernel I/O subsystem, blocking vs non-blocking I/O."
+    },
+    {
+      "topic_id": 213,
+      "course_id": 2,
+      "course_code": "os",
+      "name": "other",
+      "description": "Non-content slides: course administration, office hours, grading rubric, lab submission guidelines, and title slides."
+    },
+    {
+      "topic_id": 301,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Intelligent Agents and Search",
+      "description": "Rational agents, PEAS framework, environment types (deterministic, observable), state-space representations, and goal formulations."
+    },
+    {
+      "topic_id": 302,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Uninformed Search",
+      "description": "Breadth-First Search (BFS), Depth-First Search (DFS), Uniform-Cost Search (UCS), and iterative deepening depth-first search."
+    },
+    {
+      "topic_id": 303,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Informed and Heuristic Search",
+      "description": "Greedy Best-First Search, A* search, admissible and consistent heuristics, dominance, and heuristic evaluation functions."
+    },
+    {
+      "topic_id": 304,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Adversarial Search and Games",
+      "description": "Zero-sum two-player games, Minimax theorem, alpha-beta pruning optimization, evaluation functions, and horizon effect."
+    },
+    {
+      "topic_id": 305,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Constraint Satisfaction Problems",
+      "description": "Variables, domains, and constraints; constraint propagation with AC-3, backtracking search with MRV and forward checking."
+    },
+    {
+      "topic_id": 306,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Propositional and First-Order Logic",
+      "description": "Syntax and semantics of propositional and predicate logic, CNF conversion, resolution inference rule, and unification."
+    },
+    {
+      "topic_id": 307,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Knowledge Representation and Reasoning",
+      "description": "Ontologies, semantic networks, frame systems, default reasoning, and rule-based expert systems."
+    },
+    {
+      "topic_id": 308,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Classical Planning",
+      "description": "STRIPS and PDDL representations, forward state-space search, backward goal-stack planning, and planning graphs."
+    },
+    {
+      "topic_id": 309,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Probabilistic Reasoning and Bayesian Networks",
+      "description": "Conditional independence, Bayes rule, joint probability distributions, Bayesian network topologies, and d-separation."
+    },
+    {
+      "topic_id": 310,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Supervised Learning: Regression and Classification",
+      "description": "Linear and logistic regression, decision trees, k-nearest neighbors, naive Bayes, loss functions, and cross-validation."
+    },
+    {
+      "topic_id": 311,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Unsupervised Learning",
+      "description": "K-means clustering, hierarchical agglomerative clustering, Gaussian mixture models, and principal component analysis (PCA)."
+    },
+    {
+      "topic_id": 312,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "Neural Networks and Deep Learning",
+      "description": "Perceptrons, multi-layer feedforward networks, activation functions, backpropagation via gradient descent, and loss landscapes."
+    },
+    {
+      "topic_id": 313,
+      "course_id": 3,
+      "course_code": "ai",
+      "name": "other",
+      "description": "Non-content slides: instructor contacts, academic honesty policy, grading scheme, term project logistics, and title slides."
+    }
+  ]
+}
+

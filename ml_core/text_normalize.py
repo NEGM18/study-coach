@@ -4,16 +4,16 @@ import re
 import unicodedata
 
 TRAINING_TRANSLATION = str.maketrans(
-    "أإآ٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹",
-    "ااا01234567890123456789",
+    "أإآٱ٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹",
+    "اااا01234567890123456789",
     "ـ",
 )
 EVAL_TRANSLATION = str.maketrans("ىة", "يه")
-NON_SPEECH_TAG = re.compile(
-    r"\[\s*(?:music|(?:background\s+)?noise|silence|laughter|applause|"
-    r"cough(?:ing)?|breath(?:ing)?|inaudible|unintelligible)\s*\]",
-    flags=re.IGNORECASE,
+NON_SPEECH_WORDS = (
+    r"\s*(?:music|(?:background\s+)?noise|silence|laughter|applause|"
+    r"cough(?:ing)?|breath(?:ing)?|inaudible|unintelligible)\s*"
 )
+NON_SPEECH_TAG = re.compile(rf"\[{NON_SPEECH_WORDS}\]|<{NON_SPEECH_WORDS}>", flags=re.IGNORECASE)
 
 
 def normalize_for_training(text: str) -> str:

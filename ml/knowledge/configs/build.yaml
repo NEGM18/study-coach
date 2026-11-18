@@ -1,0 +1,26 @@
+# Model A dataset build (issues #13, #14). Run:
+#   python -m ml.knowledge.scripts.build_dataset --config ml/knowledge/configs/build.yaml
+seed: 42
+user_id_salt: "study-coach-kt-v1"  # not a secret; keeps hashed IDs stable across runs
+
+cleaning:
+  response_time_cap_quantile: 0.99
+  min_answers_per_student: 10
+  min_answers_per_skill: 20
+
+splits: {train: 0.8, val: 0.1, test: 0.1}
+
+assistments:
+  raw_path: ml/data/raw/knowledge/skill_builder_data_corrected_collapsed.csv
+  encoding: latin-1
+
+ednet:
+  kt1_zip: ml/data/raw/knowledge/EdNet-KT1.zip
+  questions_csv: ml/data/raw/knowledge/EdNet-Contents/contents/questions.csv
+  sample_students: 5000
+
+output:
+  processed: ml/data/processed/knowledge/kt_processed_v1.parquet
+  ednet_processed: ml/data/processed/knowledge/kt_ednet_processed_v1.parquet
+  cleaning_log: ml/knowledge/cleaning_log.csv
+  ednet_cleaning_log: ml/knowledge/cleaning_log_ednet.csv

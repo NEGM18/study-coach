@@ -1,0 +1,34 @@
+# Model B dataset build (issues #3, #4, #5). Run:
+#   python -m ml.speech.scripts.build_dataset --config ml/speech/configs/build.yaml
+seed: 42
+
+sources:  # each entry is converted to the JSONL manifest; missing paths are skipped with a warning
+  - {name: mgb3, format: kaldi, path: ml/data/raw/speech/mgb3}
+  - {name: arzen, format: kaldi, path: ml/data/raw/speech/arzen}
+  - {name: common_voice_ar, format: common_voice, path: ml/data/raw/speech/cv-corpus-ar, tsv: validated.tsv}
+  - {name: ours, format: manifest, path: ml/data/interim/speech/ours_corrected_v1.jsonl}
+
+cleaning:
+  min_clip_s: 1.0
+  max_clip_s: 30.0
+  min_chars_per_s: 2.0   # below: long silence or missing words
+  max_chars_per_s: 30.0  # above: text does not belong to this audio
+
+cer_filter:
+  drafts: ml/data/interim/speech/whisper_small_zero_shot_v1.jsonl  # from draft_transcripts.py
+  max_cer: 0.8
+
+splits:
+  dev_fraction_of_ours: 0.5  # our corrected lectures only; public data is always train
+
+drafts:  # draft_transcripts.py (run on a Colab GPU)
+  pseudo_model: openai/whisper-large-v3
+  zero_shot_model: openai/whisper-small
+  language: ar
+
+output:
+  dir: ml/data/processed/speech
+  train: speech_train_v1.jsonl
+  dev: speech_dev_v1.jsonl
+  test: speech_test_v1.jsonl
+  cleaning_log: ml/speech/cleaning_log.csv

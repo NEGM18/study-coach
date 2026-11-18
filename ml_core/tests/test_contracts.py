@@ -37,7 +37,6 @@ def test_transcribe_returns_ordered_segments(tmp_path):
     assert [s.start_s for s in segments] == sorted(s.start_s for s in segments)
 
 
-@pending
 def test_classify_chunks_returns_one_known_topic_per_chunk():
     topics = [Topic(1, 10, "Linked lists"), Topic(2, 10, "Binary trees")]
     chunks = [

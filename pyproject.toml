@@ -14,7 +14,9 @@ dependencies = [
 [project.optional-dependencies]
 speech = ["soundfile>=0.12", "librosa>=0.10", "silero-vad>=5", "pyloudnorm>=0.1"]
 topics = ["pymupdf>=1.24", "python-pptx>=0.6", "pytesseract>=0.3", "datasketch>=1.6"]
-dev = ["pytest>=8", "ruff>=0.6", "dvc[gdrive]>=3"]
+dev = ["pytest>=8", "ruff>=0.6", "dvc[gdrive]>=3", "pyopenssl>=24.2"]
+eda = ["matplotlib>=3.8", "jupyter>=1.0"]
+asr = ["transformers>=4.44", "accelerate>=0.33"]
 
 [build-system]
 requires = ["hatchling"]

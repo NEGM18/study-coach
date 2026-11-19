@@ -26,6 +26,7 @@ study-coach/
 │   ├── schemas.py               # app-shaped rows: Attempt, Segment, Chunk, Topic, TopicPrediction
 │   ├── text_normalize.py        # shared Arabic rules (Amr)
 │   ├── cleaning_log.py          # logs rows in/out per cleaning step (Amr)
+│   ├── registry.py              # get_predictor(model): picks stub/v1/... from *_MODEL_VERSION env vars
 │   ├── knowledge/               # features.py, predict.py            (model A — Amr)
 │   ├── speech/                  # audio.py, predict.py               (model B — Omar Negm)
 │   ├── topics/                  # extract.py, clean.py, predict.py   (model C — Mariam, Omar Mustafa)

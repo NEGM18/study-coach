@@ -89,6 +89,9 @@ and data-preparation code must use these exact field names and types:
 | `quiz_attempts` | `Attempt` | `user_id: str`, `topic_id: int`, `question_id: int`, `attempt_order: int`, `is_correct: bool`, `response_time_ms: int \| None = None`, `attempt_count: int = 1`, `hint_count: int = 0` |
 | `lecture_chunks` | `Chunk` | `chunk_id: str`, `course_id: int`, `lecture_id: int`, `text: str`, `slide_no: int \| None = None`, `lang: Literal["ar", "en", "mixed"] = "ar"`, `topic_id: int \| None = None` |
 | `course_topics` | `Topic` | `topic_id: int`, `course_id: int`, `name: str`, `description: str = ""` |
+| `topic_mastery` | `TopicMastery` | `user_id: str`, `topic_id: int`, `mastery: float` (0..1), `updated_at: datetime \| None = None` |
+
+The tables themselves are created by `db/migrations/0001_init.sql` (issue #36); `ml_core/tests/test_schemas.py` checks the two agree.
 
 App tables and data-preparation code must use these names, types, nullability,
 and defaults. Any change to `schemas.py` needs Omar's approval first.

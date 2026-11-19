@@ -1,0 +1,184 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Week 2 Plan</title><style>
+@page { size: A4; margin: 16mm 15mm 18mm 15mm; }
+:root { --ink:#1b1f24; --muted:#5b6470; --line:#d9dee4; --accent:#1f5fa8; --soft:#f3f6fa; --warn:#a8461f; }
+body { background:#fff; color:var(--ink); font-family: "DejaVu Sans", Arial, sans-serif; font-size:9.6pt; line-height:1.42; margin:0; }
+h1 { font-size:22pt; margin:0 0 4pt; color:var(--accent); }
+h2 { font-size:13.5pt; margin:16pt 0 6pt; border-bottom:1.5pt solid var(--accent); padding-bottom:2pt; }
+h3 { font-size:10.5pt; margin:0 0 3pt; }
+.sub { color:var(--muted); font-size:10.5pt; margin-bottom:10pt; }
+table { border-collapse:collapse; width:100%; margin:4pt 0 8pt; font-size:8.6pt; }
+th, td { border:0.6pt solid var(--line); padding:3pt 5pt; text-align:left; vertical-align:top; }
+th { background:var(--soft); }
+code { font-family:"DejaVu Sans Mono", monospace; font-size:8.2pt; background:var(--soft); padding:0 2pt; border-radius:2pt; }
+.goal { background:var(--soft); border-left:3pt solid var(--accent); padding:7pt 10pt; margin:6pt 0 10pt; }
+.warn { border-left:3pt solid var(--warn); background:#fbf3ef; padding:6pt 10pt; margin:6pt 0; }
+.task { border:0.7pt solid var(--line); border-radius:4pt; padding:7pt 9pt; margin:0 0 7pt; break-inside:avoid; }
+.meta { color:var(--muted); font-size:8.4pt; margin-bottom:4pt; }
+.tag { display:inline-block; font-size:7.8pt; padding:0 5pt; border-radius:8pt; background:var(--soft); border:0.5pt solid var(--line); margin-right:3pt; }
+.cols { display:flex; gap:12pt; } .cols > div { flex:1; }
+ul, ol { margin:2pt 0 2pt 14pt; padding:0; } li { margin:1pt 0; }
+.small { font-size:8.4pt; color:var(--muted); }
+.pb { break-before:page; }
+</style></head><body>
+<h1>AI Study Coach — Week 2 Plan</h1>
+<div class="sub">Train v1 models · stand up the app on staging · 2026-11-19 · Issues #35–#57 (task W2-NN = issue #(34+NN))</div>
+<div class="goal"><b>Goal.</b> Every model has a trained <b>v1</b> compared honestly against its stub on the held-out test set, and the app runs end to end on staging —
+sign up → upload a lecture → topic-tagged chunks → quiz attempt → mastery — with the stubs behind the same <code>predict()</code> functions.
+From Week 2, app work branches from and merges into <code>dev</code>.</div>
+
+<h2>1. Where Week 1 ended</h2>
+<p>Repo checkup on <code>main</code>: <b>83 tests pass</b>, Ruff lint and format clean, CI green.</p>
+<table><tr><th>Area</th><th>Status</th><th>Numbers</th></tr>
+<tr><td>Shared</td><td>✅ schemas, cleaning_log, text_normalize, DVC, CI (#11 open for final dvc pull check)</td><td>83 tests</td></tr>
+<tr><td>A — knowledge</td><td>✅ dataset, data card, features, stub, spot check</td><td>ASSISTments 346,860 → 253,278 · EdNet 652,345 → 638,684 · 20/20 spot check</td></tr>
+<tr><td>B — speech</td><td>⏳ audio prep + Gemini stub + build script done; dataset waits for audio</td><td>#3–#10 open (Omar Negm, Fares)</td></tr>
+<tr><td>C — topics</td><td>✅ extraction, 7-step cleaning, labels, stub, lecture splits</td><td>654 → 557 chunks · 390 / 87 / 80</td></tr></table>
+
+<h3>Checkup findings to fix this week</h3>
+<div class="warn"><ol>
+<li><b>C stub accuracy 1.0000 is circular</b> — the gold label is the stub's own <code>predicted_topic_id</code>. → W2-17 (#51)</li>
+<li><b>C kappa 1.0000</b> — 200/200 identical labels, both columns committed by one person. → W2-18 (#52)</li>
+<li><b>Professor names in Git</b> (<code>ml/topics/*.json</code>, <code>spot_check_30.md</code>) — violates the P1/P2 rule. → W2-19 (#53)</li>
+<li>Topic keywords and the 0.05 threshold hard-coded in <code>predict.py</code>. → W2-17 (#51)</li>
+<li>PFA baseline 0.717 measured on the original file, not our corrected one — re-measure. → W2-09 (#43)</li>
+<li><code>schemas.py</code> still “Draft v0”, no TopicMastery; no migrations yet. → W2-02 (#36)</li></ol></div>
+
+<h2>2. Who does what</h2>
+<table><tr><th>Person</th><th>Role this week</th><th>Week 2 tasks</th><th>Still open from Week 1</th></tr><tr><td><b>Omar Negm</b></td><td>Lead · Model B · platform</td><td>W2-01, W2-04, W2-05, W2-07, W2-14, W2-15</td><td>Week 1: #3, #4, #5, #6</td></tr><tr><td><b>Amr</b></td><td>Model A lead · DB & API</td><td>W2-02, W2-03, W2-08, W2-10</td><td>Week 1: #11</td></tr><tr><td><b>Hager</b></td><td>Model A partner · QA</td><td>W2-06, W2-09, W2-11</td><td>—</td></tr><tr><td><b>Fares</b></td><td>Model B partner · data</td><td>W2-12, W2-13, W2-16</td><td>Week 1: #7, #8, #9, #10</td></tr><tr><td><b>Omar Mustafa</b></td><td>Model C lead · frontend lead</td><td>W2-17, W2-21, W2-22, W2-23</td><td>—</td></tr><tr><td><b>Mariam</b></td><td>Model C partner · training</td><td>W2-18, W2-19, W2-20</td><td>—</td></tr></table>
+<p class="small">AI help ratings are the same as Week 1: <b>High</b> = Claude can write most of it with you reviewing · <b>Medium</b> = shared · <b>Low</b> = needs a person (judgment or real-world work).
+Review: Omar Negm reviews every PR, Amr reviews Omar's; Hager, Fares and Mariam get a first look from their pair lead.</p>
+
+<h2>3. All tasks</h2>
+<table><tr><th>Task</th><th>Issue</th><th>Team</th><th>Owner</th><th>Due</th><th>AI help</th><th>What</th></tr><tr><td>W2-01</td><td>#35</td><td>All</td><td>Omar Negm</td><td>Day 1</td><td>Low</td><td>Week 2 kickoff; create dev branch; carry over Week 1 open items</td></tr><tr><td>W2-02</td><td>#36</td><td>All</td><td>Amr</td><td>Day 2</td><td>Medium</td><td>db/migrations/0001_init.sql with RLS; TopicMastery in schemas.py; close #11</td></tr><tr><td>W2-03</td><td>#37</td><td>All</td><td>Amr</td><td>Day 4</td><td>High</td><td>FastAPI skeleton in services/api under /api/v1 with auth and tests</td></tr><tr><td>W2-04</td><td>#38</td><td>All</td><td>Omar Negm</td><td>Day 5</td><td>High</td><td>Worker in services/worker; model versions from env vars</td></tr><tr><td>W2-05</td><td>#39</td><td>All</td><td>Omar Negm</td><td>Day 6</td><td>Medium</td><td>Staging: Supabase staging + Railway auto-deploy from dev + smoke test</td></tr><tr><td>W2-06</td><td>#40</td><td>All</td><td>Hager</td><td>Day 7</td><td>Medium</td><td>QA checklist docs/qa/week2_checklist.md; run it on staging</td></tr><tr><td>W2-07</td><td>#41</td><td>All</td><td>Omar Negm</td><td>Day 7</td><td>Low</td><td>Review all PRs; Day 7 demo; Week 2 gate; release v0.2.0</td></tr><tr><td>W2-08</td><td>#42</td><td>A</td><td>Amr</td><td>Day 3</td><td>High</td><td>ml/knowledge/scripts/train.py → knowledge_model_v1</td></tr><tr><td>W2-09</td><td>#43</td><td>A</td><td>Hager</td><td>Day 4</td><td>High</td><td>evaluate.py: stub vs PFA vs v1 on test (ASSISTments + EdNet)</td></tr><tr><td>W2-10</td><td>#44</td><td>A</td><td>Amr</td><td>Day 5</td><td>Medium</td><td>predict_mastery() versioned via KNOWLEDGE_MODEL_VERSION; &lt; 100 ms</td></tr><tr><td>W2-11</td><td>#45</td><td>A</td><td>Hager</td><td>Day 6</td><td>Medium</td><td>Model card, edge-case tests, dvc push for knowledge_model_v1</td></tr><tr><td>W2-12</td><td>#46</td><td>B</td><td>Fares</td><td>Day 3</td><td>Low</td><td>Record 4+ more lectures (10+ total, 3+ professors)</td></tr><tr><td>W2-13</td><td>#47</td><td>B</td><td>Fares</td><td>Day 5</td><td>Low</td><td>Correct 2 more hours of draft transcripts (4+ h total)</td></tr><tr><td>W2-14</td><td>#48</td><td>B</td><td>Omar Negm</td><td>Day 5</td><td>Medium</td><td>Fine-tune Whisper-small → speech_model_v1</td></tr><tr><td>W2-15</td><td>#49</td><td>B</td><td>Omar Negm</td><td>Day 6</td><td>Medium</td><td>evaluate.py: CER/WER, code-switch breakdown, RTF; model card</td></tr><tr><td>W2-16</td><td>#50</td><td>B</td><td>Fares</td><td>Day 7</td><td>Low</td><td>Listen to 30 v1 outputs vs the stub; error report</td></tr><tr><td>W2-17</td><td>#51</td><td>C</td><td>Omar Mustafa</td><td>Day 2</td><td>Medium</td><td>Fix circular stub evaluation; keywords and thresholds to config</td></tr><tr><td>W2-18</td><td>#52</td><td>C</td><td>Mariam</td><td>Day 2</td><td>Low</td><td>Redo the 200 blind agreement labels; real kappa</td></tr><tr><td>W2-19</td><td>#53</td><td>C</td><td>Mariam</td><td>Day 3</td><td>High</td><td>Anonymize professor names; topics_processed_v2</td></tr><tr><td>W2-20</td><td>#54</td><td>C</td><td>Mariam</td><td>Day 5</td><td>High</td><td>train.py → topics_model_v1 (multilingual embeddings + classifier)</td></tr><tr><td>W2-21</td><td>#55</td><td>C</td><td>Omar Mustafa</td><td>Day 6</td><td>Medium</td><td>evaluate.py; classify_chunks() versioned; speed; model card</td></tr><tr><td>W2-22</td><td>#56</td><td>App</td><td>Omar Mustafa</td><td>Day 2</td><td>High</td><td>Flutter project: core/, l10n (Arabic RTL default), CI mobile green</td></tr><tr><td>W2-23</td><td>#57</td><td>App</td><td>Omar Mustafa</td><td>Day 6</td><td>High</td><td>Auth, courses, lecture-upload screens; staging test build</td></tr></table>
+
+<h2>4. Timeline and dependencies</h2>
+<table><tr><td><b>Day 1</b></td><td>W2-01 Omar Negm</td></tr><tr><td><b>Day 2</b></td><td>W2-02 Amr · W2-17 Omar Mustafa · W2-18 Mariam · W2-22 Omar Mustafa</td></tr><tr><td><b>Day 3</b></td><td>W2-08 Amr · W2-12 Fares · W2-19 Mariam</td></tr><tr><td><b>Day 4</b></td><td>W2-03 Amr · W2-09 Hager</td></tr><tr><td><b>Day 5</b></td><td>W2-04 Omar Negm · W2-10 Amr · W2-13 Fares · W2-14 Omar Negm · W2-20 Mariam</td></tr><tr><td><b>Day 6</b></td><td>W2-05 Omar Negm · W2-11 Hager · W2-15 Omar Negm · W2-21 Omar Mustafa · W2-23 Omar Mustafa</td></tr><tr><td><b>Day 7</b></td><td>W2-06 Hager · W2-07 Omar Negm · W2-16 Fares</td></tr></table>
+<ul><li>W2-14 (Whisper fine-tune) needs Week 1 #4 and #5 (speech dataset) — the critical path for model B.</li>
+<li>W2-20 (topics v1) needs W2-17 (honest labels) and W2-19 (anonymized v2 data).</li>
+<li>W2-10, W2-15, W2-21 (versioned <code>predict()</code>) need W2-04's <code>ml_core/registry.py</code>.</li>
+<li>W2-05 (staging) needs W2-02, W2-03, W2-04 · W2-06 (QA) needs W2-05 and W2-23.</li></ul>
+
+<h2>5. Testing strategy</h2>
+<table><tr><th>Layer</th><th>What is tested</th><th>Where / when</th></tr>
+<tr><td>Unit</td><td>Every new cleaning, feature, metric and registry function</td><td><code>ml_core/tests/</code> · every PR</td></tr>
+<tr><td>Contract</td><td>Each <code>predict()</code> parametrized over <code>stub</code> and <code>v1</code>; same types and ranges</td><td><code>test_contracts.py</code> · every PR</td></tr>
+<tr><td>Speed</td><td>A &lt; 100 ms/call · C &lt; 5 s/lecture · B real-time factor ≤ 0.5</td><td>Tests + model cards</td></tr>
+<tr><td>Model evaluation</td><td>Test split only. A: AUC, log-loss, calibration vs stub + re-measured PFA. B: CER/WER with <code>normalize_for_eval</code>, Arabic vs mixed. C: accuracy, macro-F1 vs honest stub</td><td><code>ml/&lt;model&gt;/scripts/evaluate.py</code></td></tr>
+<tr><td>Leakage</td><td>No student / speaker / lecture in two splits; test never used for tuning</td><td>Asserts in train/eval scripts</td></tr>
+<tr><td>API</td><td>Each route: happy path, 401, 422</td><td><code>services/api/tests/</code> · CI</td></tr>
+<tr><td>Worker</td><td>Fake jobs end done; failures end failed and the worker survives</td><td><code>services/worker/tests/</code> · CI</td></tr>
+<tr><td>App</td><td>Widget tests in Arabic (RTL) and English; provider tests; integration test on staging</td><td><code>apps/mobile/test/</code> · CI + before release</td></tr>
+<tr><td>Manual QA</td><td>Week 2 checklist on a real Android phone</td><td><code>docs/qa/week2_checklist.md</code> · Day 7</td></tr></table>
+
+<h2>6. Week 2 gate (Day 7)</h2>
+<ul style="list-style:none;margin-left:2pt">
+<li>☐ <code>dev</code> exists; API and worker auto-deploy to staging; smoke test green</li>
+<li>☐ App test build: sign up → upload → chunks → quiz → mastery works on staging in Arabic and English</li>
+<li>☐ Each model: v1 in DVC with a model card and an honest test-set comparison against its stub (A also against the re-measured PFA)</li>
+<li>☐ No professor names or student data in Git; real kappa ≥ 0.80 for model C</li>
+<li>☐ A model goes live on staging only if it passes every box in README 5.4 — otherwise it stays <code>stub</code></li>
+<li>☐ Release <code>week-2</code> merged to <code>main</code>, tagged <code>v0.2.0</code></li></ul>
+
+<h2>7. Rules that matter most this week</h2>
+<ul><li>New libraries (fastapi, sentence-transformers, …): ask Omar first; add to <code>pyproject.toml</code> in the same PR.</li>
+<li>Model versions only from <code>*_MODEL_VERSION</code> env vars; paths from YAML; never hard-coded.</li>
+<li>Models saved as <code>&lt;model&gt;_model_v&lt;n&gt;/</code> in DVC with <code>model_card.md</code>.</li>
+<li>Migrations are new numbered files; schema changes update <code>schemas.py</code> in the same PR.</li>
+<li>The app talks only to <code>/api/v1</code> through <code>api_client.dart</code>; no secrets in the app; Arabic-first RTL.</li>
+<li>Seed 42; splits by student / speaker / lecture; never paste raw student data, audio or keys into a chat.</li></ul>
+
+<div class="pb"></div>
+<h2>Shared platform</h2><div class="task"><h3>W2-01 · #35 · Week 2 kickoff; create dev branch; carry over Week 1 open items</h3>
+<div class="meta"><span class="tag">[All]</span><span class="tag">Owner: Omar Negm</span><span class="tag">Day 1</span>
+<span class="tag">AI help: Low</span><span class="tag">Reviewer: Amr</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Run the kickoff on this plan; confirm owners and due days.</li><li>Create <code>dev</code> from <code>main</code>; protect both (PR + green CI, no force-push).</li><li>Agree new due days for open Week 1 issues #3–#11.</li><li>Post the Week 1 gate result in the team chat.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ A PR into <code>dev</code> without green CI cannot be merged.</li></ul>
+<b>Done when</b><div>dev protected; carry-over dates posted. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-02 · #36 · db/migrations/0001_init.sql with RLS; TopicMastery in schemas.py; close #11</h3>
+<div class="meta"><span class="tag">[All]</span><span class="tag">Owner: Amr</span><span class="tag">Day 2</span>
+<span class="tag">AI help: Medium</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Tables: users, courses, course_topics, lectures, lecture_chunks, quiz_questions, quiz_attempts, topic_mastery, jobs — column names exactly as <code>schemas.py</code>.</li><li>Row Level Security: students see only their own rows.</li><li>Add <code>TopicMastery</code> to <code>schemas.py</code>; remove the “Draft v0” note.</li><li>Load <code>course_topics_seed.json</code> into Supabase dev; finish #11.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ test_schemas.py: dataclass fields match the SQL columns.</li><li>☐ Manual RLS check with two test users.</li></ul>
+<b>Done when</b><div>Migration on Supabase dev; #11 closed. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-03 · #37 · FastAPI skeleton in services/api under /api/v1 with auth and tests</h3>
+<div class="meta"><span class="tag">[All]</span><span class="tag">Owner: Amr</span><span class="tag">Day 4</span>
+<span class="tag">AI help: High</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Ask Omar before adding fastapi, uvicorn, httpx, supabase (new <code>api</code> extra).</li><li>Routes: /health, /courses, /courses/{id}/topics, POST /lectures, GET /lectures/{id}, POST /quiz-attempts, GET /mastery.</li><li>Supabase JWT on every route except /health; snake_case JSON; settings from env vars only.</li><li>No Gemini in the API — heavy work goes to the worker.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ TestClient: happy path, 401 without token, 422 on bad input per route.</li><li>☐ New CI job runs API tests.</li></ul>
+<b>Done when</b><div>API runs locally on Supabase dev; OpenAPI lists every route. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-04 · #38 · Worker in services/worker; model versions from env vars</h3>
+<div class="meta"><span class="tag">[All]</span><span class="tag">Owner: Omar Negm</span><span class="tag">Day 5</span>
+<span class="tag">AI help: High</span><span class="tag">Reviewer: Amr</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Poll the <code>jobs</code> table; mark done/failed.</li><li>Audio: prepare_audio → transcribe → chunks → classify_chunks. Slides: extract_file → clean → classify_chunks. Quiz: predict_mastery → topic_mastery.</li><li><code>ml_core/registry.py</code>: version from KNOWLEDGE_/SPEECH_/TOPICS_MODEL_VERSION; unknown → stub.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ test_registry.py: stub and unknown versions return the stub.</li><li>☐ Fake jobs end done; failing job ends failed and the worker keeps running.</li></ul>
+<b>Done when</b><div>Real PDF upload processed end to end on dev. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-05 · #39 · Staging: Supabase staging + Railway auto-deploy from dev + smoke test</h3>
+<div class="meta"><span class="tag">[All]</span><span class="tag">Owner: Omar Negm</span><span class="tag">Day 6</span>
+<span class="tag">AI help: Medium</span><span class="tag">Reviewer: Amr</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Supabase staging project; Amr applies migration + seed.</li><li>Railway staging: API + worker auto-deploy on merge to dev.</li><li>Secrets only in Railway/GitHub; staging Gemini key with spending alert; all versions = stub.</li><li>Smoke test: /api/v1/health 200 and one upload job finishes.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Smoke test green after a merge to dev.</li><li>☐ No real keys in Git.</li></ul>
+<b>Done when</b><div>Staging health green. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-06 · #40 · QA checklist docs/qa/week2_checklist.md; run it on staging</h3>
+<div class="meta"><span class="tag">[All]</span><span class="tag">Owner: Hager</span><span class="tag">Day 7</span>
+<span class="tag">AI help: Medium</span><span class="tag">Reviewer: Omar Negm (first look: Amr)</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Checklist: sign up, log in, course, upload PDF, upload audio, chunks with topics, quiz, mastery — Arabic + English, RTL.</li><li>Run it on Day 7 on a real Android phone with the W2-23 build.</li><li>Every failure → bug issue with steps to reproduce.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Every step has pass/fail + phone + app version.</li></ul>
+<b>Done when</b><div>Checklist merged; results posted; bugs filed. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-07 · #41 · Review all PRs; Day 7 demo; Week 2 gate; release v0.2.0</h3>
+<div class="meta"><span class="tag">[All]</span><span class="tag">Owner: Omar Negm</span><span class="tag">Day 7</span>
+<span class="tag">AI help: Low</span><span class="tag">Reviewer: Amr</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Review every PR within 24 h.</li><li>Day 7: each pair shows v1 vs stub/baseline and the app on staging.</li><li>Check the gate; only models passing README 5.4 change their version on staging.</li><li>Release PR <code>release: week-2</code> dev → main; tag v0.2.0.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ CI green on dev and the release PR.</li><li>☐ No open blocker bugs from W2-06.</li></ul>
+<b>Done when</b><div>Gate posted; v0.2.0 tagged. PR merged with CI green; issue closed with proof.</div></div></div></div><h2>Model A — knowledge</h2><div class="task"><h3>W2-08 · #42 · ml/knowledge/scripts/train.py → knowledge_model_v1</h3>
+<div class="meta"><span class="tag">[A]</span><span class="tag">Owner: Amr</span><span class="tag">Day 3</span>
+<span class="tag">AI help: High</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>train.py + configs/train.yaml (seed 42).</li><li>Features only from build_feature_frame; never topic_id as input.</li><li>Train on train, tune on val: logistic regression, then HistGradientBoosting (no new library).</li><li>Save ml/data/models/knowledge_model_v1/; dvc add.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Deterministic tiny training run.</li><li>☐ No-future-leak test still passes.</li></ul>
+<b>Done when</b><div>Val AUC posted for both model types; model in DVC. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-09 · #43 · evaluate.py: stub vs PFA vs v1 on test (ASSISTments + EdNet)</h3>
+<div class="meta"><span class="tag">[A]</span><span class="tag">Owner: Hager</span><span class="tag">Day 4</span>
+<span class="tag">AI help: High</span><span class="tag">Reviewer: Omar Negm (first look: Amr)</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>AUC, accuracy, log-loss, 10-bin calibration on split == test.</li><li>Re-measure PFA on kt_processed_v1 — the 0.717 was on the original file.</li><li>Cross-dataset: train ASSISTments, test EdNet.</li><li>Write ml/knowledge/eval_v1.md.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Metrics on a 6-row example match hand values.</li><li>☐ Assert test split never used for training.</li></ul>
+<b>Done when</b><div>eval_v1.md merged. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-10 · #44 · predict_mastery() versioned via KNOWLEDGE_MODEL_VERSION; &lt; 100 ms</h3>
+<div class="meta"><span class="tag">[A]</span><span class="tag">Owner: Amr</span><span class="tag">Day 5</span>
+<span class="tag">AI help: Medium</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Signature unchanged; version via registry; path from config; stub fallback.</li><li>Load the model once (cache).</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Contract tests parametrized over stub and v1.</li><li>☐ Output in [0,1]; empty history returns the prior.</li><li>☐ Median &lt; 100 ms on a 500-attempt history.</li></ul>
+<b>Done when</b><div>Contract and speed tests green in CI. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-11 · #45 · Model card, edge-case tests, dvc push for knowledge_model_v1</h3>
+<div class="meta"><span class="tag">[A]</span><span class="tag">Owner: Hager</span><span class="tag">Day 6</span>
+<span class="tag">AI help: Medium</span><span class="tag">Reviewer: Omar Negm (first look: Amr)</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>model_card.md: data version, features, config, test metrics, speed, failures.</li><li>Edge cases: 0 attempts, 1 attempt, unseen topic, 1,000+ history, all-correct/all-wrong.</li><li>dvc push; commit .dvc.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ One unit test per edge case; each returns a value in [0,1].</li></ul>
+<b>Done when</b><div>Model card merged; model in DVC. PR merged with CI green; issue closed with proof.</div></div></div></div><h2>Model B — speech</h2><div class="task"><h3>W2-12 · #46 · Record 4+ more lectures (10+ total, 3+ professors)</h3>
+<div class="meta"><span class="tag">[B]</span><span class="tag">Owner: Fares</span><span class="tag">Day 3</span>
+<span class="tag">AI help: Low</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Finish #7 and #8 first.</li><li>4+ more lectures → 10+ total, P1–P3, at least 2 courses.</li><li>Permission first; naming convention; DVC only; recordings_log.csv row per file (no names).</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Every file has exactly one log row and vice versa.</li></ul>
+<b>Done when</b><div>10+ recordings in DVC with complete log. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-13 · #47 · Correct 2 more hours of draft transcripts (4+ h total)</h3>
+<div class="meta"><span class="tag">[B]</span><span class="tag">Owner: Fares</span><span class="tag">Day 5</span>
+<span class="tag">AI help: Low</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>After #9, correct 2 more hours from the W2-12 recordings.</li><li>Arabic in Arabic letters, English in English letters; no translation, no grammar fixes; unclear → bad.</li><li>Post a list of words Whisper keeps getting wrong.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Omar re-checks 10 random segments: at most 1 error.</li></ul>
+<b>Done when</b><div>4+ h corrected audio in DVC. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-14 · #48 · Fine-tune Whisper-small → speech_model_v1</h3>
+<div class="meta"><span class="tag">[B]</span><span class="tag">Owner: Omar Negm</span><span class="tag">Day 5</span>
+<span class="tag">AI help: Medium</span><span class="tag">Reviewer: Amr</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Blocked by #4 and #5 (speech_train/dev_v1.jsonl).</li><li>train.py + configs/train.yaml on Colab GPU (asr extra), seed 42.</li><li>Select checkpoint by dev CER only.</li><li>Save speech_model_v1/; dvc push.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ 2-step CPU smoke run on the fixture clip (slow marker).</li><li>☐ Assert no dev/test speaker or lecture in train.</li></ul>
+<b>Done when</b><div>Dev CER curve posted; model in DVC. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-15 · #49 · evaluate.py: CER/WER, code-switch breakdown, RTF; model card</h3>
+<div class="meta"><span class="tag">[B]</span><span class="tag">Owner: Omar Negm</span><span class="tag">Day 6</span>
+<span class="tag">AI help: Medium</span><span class="tag">Reviewer: Amr</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>CER/WER on speech_test_v1 with normalize_for_eval() on both sides.</li><li>Compare Gemini stub, zero-shot Whisper-small, large-v3, v1.</li><li>Break down by Arabic-only vs mixed and by professor.</li><li>Real-time factor ≤ 0.5 on server CPU; transcribe() versioned with Gemini fallback.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ CER/WER on hand-made pairs match hand values.</li><li>☐ Contract test for stub and v1.</li></ul>
+<b>Done when</b><div>Eval table in model card. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-16 · #50 · Listen to 30 v1 outputs vs the stub; error report</h3>
+<div class="meta"><span class="tag">[B]</span><span class="tag">Owner: Fares</span><span class="tag">Day 7</span>
+<span class="tag">AI help: Low</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>30 random test clips (seed 42): compare v1 and Gemini with the corrected text.</li><li>Tag errors: English term, Arabic word, missed, hallucinated, wrong script.</li><li>Post the count table and which model you would ship.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ All 30 clips have a verdict for both models.</li></ul>
+<b>Done when</b><div>Report posted. PR merged with CI green; issue closed with proof.</div></div></div></div><h2>Model C — topics</h2><div class="task"><h3>W2-17 · #51 · Fix circular stub evaluation; keywords and thresholds to config</h3>
+<div class="meta"><span class="tag">[C]</span><span class="tag">Owner: Omar Mustafa</span><span class="tag">Day 2</span>
+<span class="tag">AI help: Medium</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Gold = human-reviewed topic_id with label_source; keep predicted_topic_id separate.</li><li>Recompute stub accuracy + macro-F1 + per-course on val/test with human labels.</li><li>Move TOPIC_KEYWORDS and the 0.05 threshold into topics_config.yaml.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Evaluation fails loudly if gold == predictions on every row.</li><li>☐ Contract test passes with config passed in.</li></ul>
+<b>Done when</b><div>Honest stub accuracy in the data card. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-18 · #52 · Redo the 200 blind agreement labels; real kappa</h3>
+<div class="meta"><span class="tag">[C]</span><span class="tag">Owner: Mariam</span><span class="tag">Day 2</span>
+<span class="tag">AI help: Low</span><span class="tag">Reviewer: Omar Negm (first look: Omar Mustafa)</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Label Studio project with the 200 chunks and no pre-annotations.</li><li>Mariam and Omar Mustafa label separately and export separately.</li><li>Compute Cohen&#x27;s kappa; resolve disagreements; clarify the labeling guide.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Kappa script reads two separate export files.</li></ul>
+<b>Done when</b><div>Real kappa in the data card (target ≥ 0.80). PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-19 · #53 · Anonymize professor names; topics_processed_v2</h3>
+<div class="meta"><span class="tag">[C]</span><span class="tag">Owner: Mariam</span><span class="tag">Day 3</span>
+<span class="tag">AI help: High</span><span class="tag">Reviewer: Omar Negm (first look: Omar Mustafa)</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>New anonymize_names step in clean.py: Dr./Prof./Eng./د./أ.د./م. + name → P1, P2… (mapping outside Git); logged.</li><li>Re-run → topics_processed_v2.parquet; update counts.</li><li>Replace names in committed verified_labels.json, label_studio_tasks.json, spot_check_30.md.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Tests: English + Arabic titles, end of line, “dr.” that is not a name.</li><li>☐ CI check: no “dr. first last” in ml/topics/.</li></ul>
+<b>Done when</b><div>v2 in DVC; no names in Git. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-20 · #54 · train.py → topics_model_v1 (multilingual embeddings + classifier)</h3>
+<div class="meta"><span class="tag">[C]</span><span class="tag">Owner: Mariam</span><span class="tag">Day 5</span>
+<span class="tag">AI help: High</span><span class="tag">Reviewer: Omar Negm (first look: Omar Mustafa)</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Needs W2-17 and W2-19.</li><li>Ask Omar before adding sentence-transformers (topics-train extra).</li><li>Embed chunks + topic descriptions (e.g. multilingual-e5-small); logistic regression; tune on val; seed 42.</li><li>Same normalize_for_training() as the stub; save topics_model_v1/; dvc add.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Deterministic on 10 made-up chunks.</li><li>☐ Assert no lecture_id in two splits.</li></ul>
+<b>Done when</b><div>Val accuracy + macro-F1 posted; model in DVC. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-21 · #55 · evaluate.py; classify_chunks() versioned; speed; model card</h3>
+<div class="meta"><span class="tag">[C]</span><span class="tag">Owner: Omar Mustafa</span><span class="tag">Day 6</span>
+<span class="tag">AI help: Medium</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Test split: accuracy, macro-F1, per-course, confusion table; stub vs v1.</li><li>Signature unchanged; version via registry; stub fallback.</li><li>One 40-chunk lecture &lt; 5 s on server CPU.</li><li>model_card.md with known failures.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Contract test for stub and v1.</li><li>☐ Speed test.</li><li>☐ Same ValueError with no topics in both versions.</li></ul>
+<b>Done when</b><div>Model card with stub-vs-v1 table. PR merged with CI green; issue closed with proof.</div></div></div></div><h2>Mobile app</h2><div class="task"><h3>W2-22 · #56 · Flutter project: core/, l10n (Arabic RTL default), CI mobile green</h3>
+<div class="meta"><span class="tag">[App]</span><span class="tag">Owner: Omar Mustafa</span><span class="tag">Day 2</span>
+<span class="tag">AI help: High</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>Branch from dev; run the commands in apps/mobile/README.md.</li><li>core/: app_config, api_client (dio, /api/v1, auth header), app_router, theme.</li><li>app_ar.arb (default) + app_en.arb; Directional insets/alignment only.</li><li>config/dev.json.example keys only; no secrets.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Widget test: starts Arabic RTL; English → LTR.</li><li>☐ api_client test with mocked dio.</li><li>☐ CI: dart format, flutter analyze --fatal-infos, flutter test.</li></ul>
+<b>Done when</b><div>Runs on an emulator; PR into dev merged. PR merged with CI green; issue closed with proof.</div></div></div></div><div class="task"><h3>W2-23 · #57 · Auth, courses, lecture-upload screens; staging test build</h3>
+<div class="meta"><span class="tag">[App]</span><span class="tag">Owner: Omar Mustafa</span><span class="tag">Day 6</span>
+<span class="tag">AI help: High</span><span class="tag">Reviewer: Omar Negm</span></div>
+<div class="cols"><div><b>Steps</b><ol><li>auth/: supabase_flutter sign up / log in (auth only).</li><li>courses/: list + topics from the API.</li><li>lectures/: pick PDF/audio → POST /lectures → job status → topic-tagged chunks.</li><li>Fake repository until W2-03 is on staging; staging APK 0.2.0+build to Firebase App Distribution.</li></ol></div><div><b>Tests</b><ul style="list-style:none;margin-left:2pt"><li>☐ Widget tests per screen in Arabic and English, incl. loading/empty/error.</li><li>☐ Provider tests with a fake repo.</li><li>☐ integration_test: log in → course → upload → chunks.</li></ul>
+<b>Done when</b><div>Test build on a real Android phone. PR merged with CI green; issue closed with proof.</div></div></div></div>
+</body></html>

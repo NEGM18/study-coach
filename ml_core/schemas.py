@@ -1,10 +1,13 @@
 """App-shaped row formats shared by training and the app's worker.
 
-Field names match the app's database columns exactly. Draft v0: Amr confirms
-these against the app tables in issue #11 before anyone builds on them.
+Field names match the app's database columns exactly. The tables are created by
+db/migrations/0001_init.sql; ml_core/tests/test_schemas.py checks every field below is a
+column there. A change to quiz_attempts, lecture_chunks, course_topics or topic_mastery
+updates this file and adds a new migration in the same PR.
 """
 
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Literal
 
 Lang = Literal["ar", "en", "mixed"]
@@ -62,3 +65,13 @@ class TopicPrediction:
     chunk_id: str
     topic_id: int
     confidence: float  # 0..1
+
+
+@dataclass(frozen=True)
+class TopicMastery:
+    """A student's current mastery of one topic. Mirrors the `topic_mastery` table."""
+
+    user_id: str
+    topic_id: int
+    mastery: float  # 0..1, from knowledge.predict.predict_mastery
+    updated_at: datetime | None = None

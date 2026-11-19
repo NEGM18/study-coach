@@ -15,6 +15,7 @@ from ml_core.topics.clean import (
     _remove_ocr_garbage,
     _remove_repeating_headers,
     _tag_language,
+    anonymize_names,
     clean_chunks,
 )
 
@@ -113,7 +114,81 @@ def test_step7_detect_and_tag_language() -> None:
     assert [c.lang for c in tagged] == ["en", "ar", "mixed"]
 
 
-def test_full_pipeline_records_all_7_cleaning_steps() -> None:
+def test_step5_anonymize_names_english_titles() -> None:
+    chunks = [
+        Chunk("c1", 1, 10, "Welcome to Data Structures by Dr. Ahmed Hassan."),
+        Chunk("c2", 1, 10, "Advanced course instructed by Prof. Sherif Nabil."),
+        Chunk("c3", 1, 10, "Lab session mentored by Eng. Tarek today."),
+    ]
+    name_map: dict[str, str] = {}
+    cleaned = anonymize_names(chunks, mapping_path=None, name_map=name_map)
+    assert "Dr. Ahmed Hassan" not in cleaned[0].text
+    assert "P1" in cleaned[0].text
+    assert "Prof. Sherif Nabil" not in cleaned[1].text
+    assert "P2" in cleaned[1].text
+    assert "Eng. Tarek" not in cleaned[2].text
+    assert "P3" in cleaned[2].text
+
+
+def test_step5_anonymize_names_arabic_titles() -> None:
+    chunks = [
+        Chunk("c1", 1, 10, "محاضرة هياكل البيانات يقدمها د. أحمد حسن في القاعة."),
+        Chunk("c2", 1, 10, "مقرر الذكاء الاصطناعي بإشراف أ.د. شريف نبيل."),
+        Chunk("c3", 1, 10, "تمارين المعمل مع م. سارة محمود."),
+    ]
+    name_map: dict[str, str] = {}
+    cleaned = anonymize_names(chunks, mapping_path=None, name_map=name_map)
+    assert "د. أحمد حسن" not in cleaned[0].text
+    assert "P1" in cleaned[0].text
+    assert "أ.د. شريف نبيل" not in cleaned[1].text
+    assert "P2" in cleaned[1].text
+    assert "م. سارة محمود" not in cleaned[2].text
+    assert "P3" in cleaned[2].text
+
+
+def test_step5_anonymize_names_end_of_line() -> None:
+    chunks = [
+        Chunk("c1", 1, 10, "Course Instructor: Dr. Ahmed Hassan\nNext line of content."),
+        Chunk("c2", 1, 10, "Primary Lecturer: Prof. Jane Doe"),
+        Chunk("c3", 1, 10, "مدرس المادة: د. أحمد حسن"),
+    ]
+    name_map: dict[str, str] = {}
+    cleaned = anonymize_names(chunks, mapping_path=None, name_map=name_map)
+    assert cleaned[0].text == "Course Instructor: P1\nNext line of content."
+    assert cleaned[1].text == "Primary Lecturer: P2"
+    assert cleaned[2].text == "مدرس المادة: P3"
+
+
+def test_step5_anonymize_names_non_name_occurrences() -> None:
+    non_names = [
+        Chunk("c1", 1, 10, "The doctor said dr. is an abbreviation."),
+        Chunk("c2", 1, 10, "Please call the dr. immediately for assistance."),
+        Chunk("c3", 1, 10, "He earned the title of Dr.\nNew topic starts here."),
+        Chunk("c4", 1, 10, "Patient record dr. 123 in table."),
+        Chunk("c5", 1, 10, "Check with your dr. before procedure."),
+    ]
+    name_map: dict[str, str] = {}
+    cleaned = anonymize_names(non_names, mapping_path=None, name_map=name_map)
+    assert cleaned[0].text == "The doctor said dr. is an abbreviation."
+    assert cleaned[1].text == "Please call the dr. immediately for assistance."
+    assert cleaned[2].text == "He earned the title of Dr.\nNew topic starts here."
+    assert cleaned[3].text == "Patient record dr. 123 in table."
+    assert cleaned[4].text == "Check with your dr. before procedure."
+    assert len(name_map) == 0
+
+
+def test_step5_anonymize_names_consistent_mapping(tmp_path) -> None:
+    mapping_file = tmp_path / "test_prof_map.json"
+    c1 = [Chunk("c1", 1, 10, "Lecture by Dr. Ahmed Hassan.")]
+    cleaned1 = anonymize_names(c1, mapping_path=mapping_file)
+    assert "P1" in cleaned1[0].text
+
+    c2 = [Chunk("c2", 1, 10, "Notes from dr. ahmed hassan today.")]
+    cleaned2 = anonymize_names(c2, mapping_path=mapping_file)
+    assert "P1" in cleaned2[0].text
+
+
+def test_full_pipeline_records_all_8_cleaning_steps() -> None:
     log = CleaningLog("topics")
     settings = {
         "header_repeat_ratio": 0.5,
@@ -121,6 +196,8 @@ def test_full_pipeline_records_all_7_cleaning_steps() -> None:
         "min_words": 5,
         "similarity_threshold": 0.90,
         "cleaning_log": log,
+        "professor_mapping_path": None,
+        "professor_name_map": {},
     }
 
     chunks = [
@@ -148,9 +225,52 @@ def test_full_pipeline_records_all_7_cleaning_steps() -> None:
         "remove_metadata",
         "remove_ocr_garbage",
         "normalize_for_training",
+        "anonymize_names",
         "filter_short_chunks",
         "deduplicate_chunks",
         "tag_language",
     ]
     assert all(row["dataset"] == "topics" for row in log.rows)
     assert all("rows_before" in row and "rows_after" in row for row in log.rows)
+
+
+def test_no_professor_names_in_committed_topics_files() -> None:
+    """CI check: ensure zero real professor names or 'dr. first last' patterns in ml/topics/."""
+    import re
+    import subprocess
+    from pathlib import Path
+
+    res = subprocess.run(
+        ["git", "ls-files", "ml/topics"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    tracked_files = [Path(p.strip()) for p in res.stdout.splitlines() if p.strip()]
+    assert tracked_files, "Expected tracked files under ml/topics"
+
+    forbidden_names = [
+        "ahmed hassan",
+        "sherif nabil",
+        "أحمد حسن",
+        "شريف نبيل",
+    ]
+    title_pattern = re.compile(
+        r"(?:dr\.|prof\.|eng\.|د\.|أ\.د\.|م\.)\s+([a-zA-Z\u0621-\u064A]+(?:\s+[a-zA-Z\u0621-\u064A]+)+)",
+        re.IGNORECASE,
+    )
+
+    for file_path in tracked_files:
+        if not file_path.exists() or file_path.suffix not in {".json", ".md", ".yaml", ".yml", ".csv", ".py"}:
+            continue
+        content = file_path.read_text(encoding="utf-8")
+        content_lower = content.lower()
+
+        for name in forbidden_names:
+            assert name not in content_lower, f"Real professor name '{name}' found in {file_path}"
+
+        for match in title_pattern.finditer(content):
+            matched_name = match.group(1).strip()
+            if re.match(r"^P\d+$", matched_name, re.IGNORECASE):
+                continue
+            raise AssertionError(f"Forbidden pattern '{match.group(0)}' found in {file_path}")

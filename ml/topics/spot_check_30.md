@@ -1,6 +1,6 @@
 # Issue #27: Cleaning Pipeline 30-Chunk Spot-Check
 
-This report verifies that the 7-step cleaning pipeline eliminates headers, metadata,
+This report verifies that the 8-step cleaning pipeline eliminates headers, metadata,
 and OCR noise while preserving genuine lecture content across all pilot courses.
 
 ## Cleaning Audit Trail Summary
@@ -11,6 +11,7 @@ and OCR noise while preserving genuine lecture content across all pilot courses.
 | `remove_metadata` | 654 | 654 | -0 | drop page numbers, URLs, emails, and copyright |
 | `remove_ocr_garbage` | 654 | 654 | -0 | drop lines with <50% valid letters |
 | `normalize_for_training` | 654 | 654 | -0 | apply shared Arabic/Latin normalization |
+| `anonymize_names` | 654 | 654 | -0 | anonymize instructor names with P1, P2... |
 | `filter_short_chunks` | 654 | 558 | -96 | drop chunks with <5 words |
 | `deduplicate_chunks` | 558 | 557 | -1 | drop duplicates with >=90% similarity |
 | `tag_language` | 557 | 557 | -0 | tag language as ar, en, or mixed |
@@ -99,7 +100,7 @@ and OCR noise while preserving genuine lecture content across all pilot courses.
 * **Original Slide Text**:
   > 6.17 <br> Silberschatz, Galvin and Gagne ©2009 <br> Operating System Concepts – 8th Edition <br> Bounded-waiting Mutual Exclusion with TestandSet() <br> do {  <br> waiting[i] = TRUE;  <br> key = TRUE;  <br> while (waiting[i] && key)  <br> key = TestAndSet(&lock);  <br> waiting[i] = FALSE;  <br> // critical section  <br> j = (i + 1) % n;  <br> while ((j != i) && !waiting[j])  <br> j = (j + 1) % n;  <br> if (j == i)  <br> lock = FALSE;  <br> else  <br> waiting[j] = FALSE;  <br> // remainder section  <br> } while (TRUE);
 * **Cleaned & Normalized Chunk**:
-  > bounded-waiting mutual exclusion with testandset() do { waiting = true; key = true; while (waiting && key) key = testandset(&lock); waiting = false; // critical section while ((j != i) && !waiting ) if (j == i) lock = false; else waiting = false; // remainder section } while (true);
+  > bounded-waiting mutual exclusion with testandset() do { waiting[i] = true; key = true; while (waiting[i] && key) key = testandset(&lock); waiting[i] = false; // critical section while ((j != i) && !waiting[j]) if (j == i) lock = false; else waiting[j] = false; // remainder section } while (true);
 
 ### Chunk 15: `c_os_l212_s03` (Course 2, Lang: `en`)
 * **Original Slide Text**:
@@ -109,9 +110,9 @@ and OCR noise while preserving genuine lecture content across all pilot courses.
 
 ### Chunk 16: `c_ds_l104_s01` (Course 1, Lang: `en`)
 * **Original Slide Text**:
-  > CS201: Data Structures & Algorithms <br> CS201 Lecture 4: Hashing and Graphs <br> Advanced structures and graph theory. <br> Instructor: Dr. Ahmed Hassan - ahmed@univ.edu.eg <br> Confidential - University Course | Page 1 | https://univ.edu.eg/courses
+  > CS201: Data Structures & Algorithms <br> CS201 Lecture 4: Hashing and Graphs <br> Advanced structures and graph theory. <br> Instructor: P1 - p1@univ.edu.eg <br> Confidential - University Course | Page 1 | https://univ.edu.eg/courses
 * **Cleaned & Normalized Chunk**:
-  > cs201 lecture 4: hashing and graphs advanced structures and graph theory. instructor: dr. ahmed hassan -
+  > cs201 lecture 4: hashing and graphs advanced structures and graph theory. instructor: P1 -
 
 ### Chunk 17: `c_os_l205_s26` (Course 2, Lang: `en`)
 * **Original Slide Text**:

@@ -338,7 +338,7 @@ Daily async standup in the team chat by 10 pm: done, next, blocked. Stuck for mo
 | --- | --- | --- |
 | #3, #4, #5, #6 | Omar Negm | Draft transcripts, public dataset conversion, error-rate filter + splits, Day 7 review |
 | #7, #8, #9, #10 | Fares | Permissions/MGB-3 + ArzEn access, recordings, 2 h of corrections, 30-clip check |
-| #11 | Amr | Code is merged; close it once everyone can `dvc pull` (part of W2-02) |
+| #11 | Amr | Code is merged; close it once everyone can `dvc pull` |
 
 ### 7.3 Week 1 checkup — problems found (fixed in Week 2)
 
@@ -356,7 +356,7 @@ Daily async standup in the team chat by 10 pm: done, next, blocked. Stuck for mo
 | Task | Issue | Team | Owner | Due | AI help | What |
 | --- | --- | --- | --- | --- | --- | --- |
 | W2-01 | #35 | All | Omar Negm | Day 1 | Low | Kickoff, `dev` branch + protection, carry-over |
-| W2-02 | #36 | All | Amr | Day 2 | Medium | `0001_init.sql` + RLS, `TopicMastery`, close #11 |
+| W2-02 | #36 | All | Omar Negm | Day 2 | Medium | Supabase dev project, `0001_init.sql` + RLS, `TopicMastery` |
 | W2-03 | #37 | All | Amr | Day 4 | High | FastAPI `/api/v1` with auth and tests |
 | W2-04 | #38 | All | Omar Negm | Day 5 | High | Worker + `ml_core/registry.py` (model versions from env vars) |
 | W2-05 | #39 | All | Omar Negm | Day 6 | Medium | Staging: Supabase + Railway auto-deploy + smoke test |
@@ -379,7 +379,7 @@ Daily async standup in the team chat by 10 pm: done, next, blocked. Stuck for mo
 | W2-22 | #56 | App | Omar Mustafa | Day 2 | High | Flutter project, core, Arabic RTL, CI mobile green |
 | W2-23 | #57 | App | Omar Mustafa | Day 6 | High | Auth, courses, upload screens; staging test build |
 
-**Dependencies:** W2-14 needs #4 and #5 (speech dataset) · W2-20 needs W2-17 and W2-19 · W2-10, W2-15 and W2-21 need W2-04's registry · W2-05 needs W2-02, W2-03 and W2-04 · W2-06 needs W2-05 and W2-23.
+**Dependencies:** W2-03 (API) needs W2-02's Supabase dev project · W2-14 needs #4 and #5 (speech dataset) · W2-20 needs W2-17 and W2-19 · W2-10, W2-15 and W2-21 need W2-04's registry · W2-05 needs W2-02, W2-03 and W2-04 · W2-06 needs W2-05 and W2-23.
 
 ### 7.5 Week 2 testing
 

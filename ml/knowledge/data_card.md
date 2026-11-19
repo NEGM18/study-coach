@@ -3,7 +3,7 @@
 | Field | Value |
 | --- | --- |
 | Owner(s) | Amr (pipeline), Hager (sources, EDA, checks) |
-| Sources (link, license, download date) | **ASSISTments 2009-2010 skill builder, corrected collapsed version** — https://sites.google.com/site/assistmentsdata/home/2009-2010-assistment-data/skill-builder-data-2009-2010 (file `skill_builder_data_corrected_collapsed.csv`, Google Drive id `1NNXHFRxcArrU0ZJSb9BIL56vmUt5FhlE`); free for research, cite the page URL as its authors ask; downloaded 2026-11-18. **EdNet KT1** — https://github.com/riiid/ednet (`EdNet-KT1.zip` via bit.ly/ednet_kt1, plus `EdNet-Contents.zip` via bit.ly/ednet-content for answer keys and tags); CC BY-NC 4.0; downloaded 2026-11-18. |
+| Sources (link, license, download date) | **ASSISTments 2009-2010 skill builder, corrected collapsed version** — https://sites.google.com/site/assistmentsdata/home/2009-2010-assistment-data/skill-builder-data-2009-2010 (file `skill_builder_data_corrected_collapsed.csv`, Google Drive id `1NNXHFRxcArrU0ZJSb9BIL56vmUt5FhlE`); free for research, cite the page URL as its authors ask; downloaded 2026-11-19. **EdNet KT1** — https://github.com/riiid/ednet (`EdNet-KT1.zip` via bit.ly/ednet_kt1, plus `EdNet-Contents.zip` via bit.ly/ednet-content for answer keys and tags); CC BY-NC 4.0; downloaded 2026-11-19. |
 | Raw files | `ml/data/raw/knowledge/` (read-only, DVC) |
 | Final dataset file(s) | `ml/data/processed/knowledge/kt_processed_v1.parquet` (ASSISTments), `kt_ednet_processed_v1.parquet` (EdNet sample), `kt_topic_map_v1.csv` (source skill_id -> topic_id) |
 | Rows | ASSISTments 346,860 raw -> **253,278** clean; EdNet sample (5,000 students, seed 42) 652,345 -> **638,684** |

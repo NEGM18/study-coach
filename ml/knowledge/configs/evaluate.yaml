@@ -1,0 +1,13 @@
+# Model A evaluation config (W2-09, issue #43)
+# Run: python -m ml.knowledge.scripts.evaluate --config ml/knowledge/configs/evaluate.yaml
+
+datasets:
+  assistments: ml/data/processed/knowledge/kt_processed_v1.parquet
+  ednet: ml/data/processed/knowledge/kt_ednet_processed_v1.parquet
+
+# Path to the trained v1 model weights — set once W2-08 (Amr) is merged.
+# Leave commented out or set to null until the model is built.
+# model_v1_path: ml/data/models/knowledge_model_v1/model.joblib
+model_v1_path: null
+
+output_md: ml/knowledge/eval_v1.md

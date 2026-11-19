@@ -14,7 +14,7 @@ This README is the team's rulebook: folder structure, code rules, Git workflow a
 | B — Lecture speech-to-text | Transcribes Egyptian lectures mixing Arabic and English | Omar Negm | Fares | `ml_core/speech/`, `ml/speech/` |
 | C — Lecture topic classifier | Tags each lecture chunk with its course topic | Omar Mustafa | Mariam | `ml_core/topics/`, `ml/topics/` |
 
-Omar Negm is the team lead and reviews every PR; Amr reviews Omar's. Tasks live on the [project board](https://github.com/users/NEGM18/projects/4). Issue numbers match the Week 1 Data Plan tracker.
+Omar Negm is the team lead and reviews every PR; Amr reviews Omar's. Tasks live on the [project board](https://github.com/users/NEGM18/projects/4). Week 1 issues #1–#28 match the Week 1 Data Plan tracker; Week 2 issues #35–#57 are tasks W2-01 to W2-23 in `docs/week2_plan.pdf` (W2-NN = issue #(34+NN)). Current status and the plan: [section 7](#7-status-and-roadmap).
 
 ---
 
@@ -39,7 +39,8 @@ study-coach/
 │   └── data/                    # NOT in Git — tracked with DVC
 │       ├── raw/                 # untouched downloads and recordings, read-only
 │       ├── interim/             # extracted and partly cleaned
-│       └── processed/           # final, app-shaped, split, ready to train
+│       ├── processed/           # final, app-shaped, split, ready to train
+│       └── models/              # <model>_model_v<n>/ + model_card.md (from Week 2)
 ├── apps/mobile/                 # Flutter app for Android and iOS (from Week 2) — see apps/mobile/README.md
 │   ├── lib/core/                # config, API client, router, theme, shared widgets
 │   ├── lib/features/<feature>/  # data/ domain/ presentation/ per feature
@@ -54,7 +55,7 @@ study-coach/
 │   └── seed/                    # course_topics_seed.json, catalog.json
 ├── evals/                       # LLM and model quality checks
 ├── tests/fixtures/              # small, anonymized sample files only
-├── docs/                        # labeling guide, QA checklists, decisions
+├── docs/                        # labeling guide, QA checklists, week plans (week2_plan.pdf)
 ├── .github/                     # CI, PR template, issue template
 ├── CLAUDE.md                    # code rules for Claude
 ├── CONTRIBUTING.md              # short version of sections 4–5
@@ -264,7 +265,7 @@ Week 1 has no deployments: data work merges into `main` and only CI runs.
 
 A trained model replaces its stub only when every box is ticked:
 
-- [ ] It beats its stub on the held-out test set (and model A beats the PFA baseline, AUC 0.717)
+- [ ] It beats its stub on the held-out test set (and model A beats the PFA baseline: AUC 0.717 on the original file; re-measured on `kt_processed_v1` in W2-09, and that number is the bar)
 - [ ] Its weights are versioned in DVC as `<model>_model_v<n>/` with a `model_card.md`: data version, metrics, known failures
 - [ ] Its `predict()` passes the same contract tests as the stub
 - [ ] It meets its speed target on our server: A under 100 ms per call, C under 5 s per lecture, B at most half the audio's length
@@ -310,3 +311,97 @@ flutter run --dart-define-from-file=config/dev.json
 ```
 
 Daily async standup in the team chat by 10 pm: done, next, blocked. Stuck for more than an hour after two or three different prompts? Post in the chat instead of looping.
+
+---
+
+## 7. Status and roadmap
+
+*Updated 2026-11-19 (end of Week 1). Full Week 2 plan with every task's steps and tests: [`docs/week2_plan.pdf`](docs/week2_plan.pdf).*
+
+### 7.1 Week 1 — what we finished
+
+**Repo health:** `uv run pytest` 83 passed · `ruff check` and `ruff format --check` clean · CI green on `main`.
+
+| Area | Done | Key numbers | Issues |
+| --- | --- | --- | --- |
+| Shared | `schemas.py`, `cleaning_log.py`, `text_normalize.py` (one test per rule), DVC remote, CI | 83 tests | #1, #12 (#11 still open) |
+| A — knowledge | ASSISTments + EdNet in DVC, EDA, cleaning, app columns, student splits, `features.py`, `predict_mastery()` stub, spot check | ASSISTments 346,860 -> **253,278** rows; EdNet sample 652,345 -> **638,684**; 20/20 spot check | #13–#19 |
+| B — speech | `audio.py` (16 kHz FLAC, loudness, VAD), `transcribe()` Gemini stub, `build_dataset.py`, Whisper draft script | Pipeline ready; **dataset not built yet** (no audio in DVC) | #2 (#3–#5, #7–#10 open) |
+| C — topics | Topic lists + labeling guide + seed, `extract.py` (PDF/PPTX/OCR), 7-step `clean.py`, Label Studio + Gemini pre-labels, `classify_chunks()` stub, lecture splits | 654 -> **557** chunks; 390 / 87 / 80 split by lecture | #20–#28 |
+
+**Week 1 gate:** A ✅ and C ✅ (dataset + data card + stub passing contract tests). B: stub ✅, dataset ⏳ — waiting on recordings, corrections and MGB-3/ArzEn access.
+
+### 7.2 Still open from Week 1 (carried into Week 2)
+
+| Issue | Owner | Note |
+| --- | --- | --- |
+| #3, #4, #5, #6 | Omar Negm | Draft transcripts, public dataset conversion, error-rate filter + splits, Day 7 review |
+| #7, #8, #9, #10 | Fares | Permissions/MGB-3 + ArzEn access, recordings, 2 h of corrections, 30-clip check |
+| #11 | Amr | Code is merged; close it once everyone can `dvc pull` (part of W2-02) |
+
+### 7.3 Week 1 checkup — problems found (fixed in Week 2)
+
+1. **Model C stub accuracy 1.0000 is circular.** `ml/topics/scripts/build_dataset.py` uses `predicted_topic_id` (the stub's own output) as the true label. There is no real baseline yet -> **W2-17 (#51)**.
+2. **Model C kappa 1.0000 is not credible.** 200/200 labels agree, and both annotator columns were committed by the same person -> **W2-18 (#52)**.
+3. **Professor names are committed** in `ml/topics/verified_labels.json`, `label_studio_tasks.json` and `spot_check_30.md`, which breaks the "P1, P2…" rule -> **W2-19 (#53)**.
+4. `TOPIC_KEYWORDS` and the 0.05 threshold are hard-coded in `ml_core/topics/predict.py`; they belong in YAML -> **W2-17 (#51)**.
+5. The PFA baseline (AUC 0.717) was measured on the original 525,534-row file, but we now use the corrected file. Re-measure it before comparing -> **W2-09 (#43)**.
+6. `schemas.py` still says "Draft v0" and has no `TopicMastery` row; `db/migrations/` is empty -> **W2-02 (#36)**.
+
+### 7.4 Week 2 — Train v1 models and stand up the app on staging
+
+**Goal:** each model has a trained v1 compared honestly against its stub on the test set, and the app runs end to end on staging (sign up -> upload a lecture -> topic-tagged chunks -> quiz attempt -> mastery) with the stubs behind the same `predict()` functions. From Week 2 app work branches from and merges into **`dev`**.
+
+| Task | Issue | Team | Owner | Due | AI help | What |
+| --- | --- | --- | --- | --- | --- | --- |
+| W2-01 | #35 | All | Omar Negm | Day 1 | Low | Kickoff, `dev` branch + protection, carry-over |
+| W2-02 | #36 | All | Amr | Day 2 | Medium | `0001_init.sql` + RLS, `TopicMastery`, close #11 |
+| W2-03 | #37 | All | Amr | Day 4 | High | FastAPI `/api/v1` with auth and tests |
+| W2-04 | #38 | All | Omar Negm | Day 5 | High | Worker + `ml_core/registry.py` (model versions from env vars) |
+| W2-05 | #39 | All | Omar Negm | Day 6 | Medium | Staging: Supabase + Railway auto-deploy + smoke test |
+| W2-06 | #40 | All | Hager | Day 7 | Medium | QA checklist, run on staging, file bugs |
+| W2-07 | #41 | All | Omar Negm | Day 7 | Low | Reviews, demo, gate, release `v0.2.0` |
+| W2-08 | #42 | A | Amr | Day 3 | High | `train.py` -> `knowledge_model_v1` |
+| W2-09 | #43 | A | Hager | Day 4 | High | `evaluate.py`: stub vs PFA vs v1, EdNet transfer |
+| W2-10 | #44 | A | Amr | Day 5 | Medium | `predict_mastery()` versioned, < 100 ms |
+| W2-11 | #45 | A | Hager | Day 6 | Medium | Model card, edge-case tests, `dvc push` |
+| W2-12 | #46 | B | Fares | Day 3 | Low | 10+ recordings, 3+ professors |
+| W2-13 | #47 | B | Fares | Day 5 | Low | 4+ hours corrected |
+| W2-14 | #48 | B | Omar Negm | Day 5 | Medium | Fine-tune Whisper-small -> `speech_model_v1` |
+| W2-15 | #49 | B | Omar Negm | Day 6 | Medium | CER/WER, code-switch breakdown, RTF, model card |
+| W2-16 | #50 | B | Fares | Day 7 | Low | Listen to 30 v1 outputs; error report |
+| W2-17 | #51 | C | Omar Mustafa | Day 2 | Medium | Fix circular evaluation; config for keywords |
+| W2-18 | #52 | C | Mariam | Day 2 | Low | Redo blind 200 labels; real kappa |
+| W2-19 | #53 | C | Mariam | Day 3 | High | Anonymize names; `topics_processed_v2` |
+| W2-20 | #54 | C | Mariam | Day 5 | High | `train.py` -> `topics_model_v1` |
+| W2-21 | #55 | C | Omar Mustafa | Day 6 | Medium | `evaluate.py`, versioned `classify_chunks()`, < 5 s/lecture |
+| W2-22 | #56 | App | Omar Mustafa | Day 2 | High | Flutter project, core, Arabic RTL, CI mobile green |
+| W2-23 | #57 | App | Omar Mustafa | Day 6 | High | Auth, courses, upload screens; staging test build |
+
+**Dependencies:** W2-14 needs #4 and #5 (speech dataset) · W2-20 needs W2-17 and W2-19 · W2-10, W2-15 and W2-21 need W2-04's registry · W2-05 needs W2-02, W2-03 and W2-04 · W2-06 needs W2-05 and W2-23.
+
+### 7.5 Week 2 testing
+
+| Layer | Test | Where |
+| --- | --- | --- |
+| Unit | Every new cleaning / feature / metric / registry function | `ml_core/tests/`, CI |
+| Contract | Each `predict()` parametrized over `stub` and `v1` | `ml_core/tests/test_contracts.py`, CI |
+| Speed | A < 100 ms/call · C < 5 s/lecture · B real-time factor <= 0.5 | Tests + model cards |
+| Model eval | Test split only: A AUC/log-loss/calibration · B CER/WER (`normalize_for_eval`) · C accuracy/macro-F1 | `ml/<model>/scripts/evaluate.py` |
+| API | Each route: happy path, 401, 422 | `services/api/tests/`, CI |
+| Worker | Fake slide/audio/quiz jobs end `done`; failures end `failed` | `services/worker/tests/`, CI |
+| App | Widget tests in Arabic (RTL) and English; provider tests; integration test on staging | `apps/mobile/test/`, `integration_test/`, CI |
+| Manual | QA checklist on a real Android phone | `docs/qa/week2_checklist.md` |
+
+### 7.6 Week 2 gate (Day 7)
+
+- [ ] `dev` exists; API + worker auto-deploy to staging; smoke test green
+- [ ] App test build: sign up -> upload -> chunks -> quiz -> mastery works on staging in Arabic and English
+- [ ] Each model: v1 in DVC with a model card and an honest test-set comparison against its stub (and A against the re-measured PFA)
+- [ ] No professor names or student data in Git; real kappa >= 0.80 for model C
+- [ ] A model goes live on staging only if it passes every box in 5.4; otherwise it stays `stub`
+- [ ] Release `week-2` merged to `main`, tagged `v0.2.0`
+
+### 7.7 After Week 2 (tentative — check against the 4-week build plan)
+
+Week 3: quizzes, study plan and readiness screens; the summaries and quiz generator (Gemini, server-side) with evals in `evals/`; a model goes to production after its full day on staging; decide on iOS/TestFlight. Week 4: the 20-student pilot on Google Play internal testing.

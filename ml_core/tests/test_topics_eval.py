@@ -1,11 +1,16 @@
 """Tests for Model C evaluation & Cohen's kappa calculation (Issues #51 & #52)."""
 
 import json
+from pathlib import Path
 
 import pytest
 
 from ml.topics.scripts.build_dataset import evaluate_topic_predictions
-from ml.topics.scripts.compute_kappa import compute_cohen_kappa
+from ml.topics.scripts.compute_kappa import (
+    compute_cohen_kappa,
+    find_disagreements,
+    load_kappa_target,
+)
 
 
 def test_evaluation_fails_loudly_on_circular_predictions():
@@ -102,3 +107,59 @@ def test_kappa_script_supports_label_studio_export_format(tmp_path):
 
     kappa = compute_cohen_kappa(file1, file2)
     assert kappa == 1.0
+
+
+def test_find_disagreements_identifies_discordant_pairs(tmp_path):
+    """Verify find_disagreements returns exact discordant chunk IDs and labels."""
+    ann1 = [
+        {"chunk_id": "c1", "topic_id": 101},
+        {"chunk_id": "c2", "topic_id": 102},
+        {"chunk_id": "c3", "topic_id": 103},
+    ]
+    ann2 = [
+        {"chunk_id": "c1", "topic_id": 101},
+        {"chunk_id": "c2", "topic_id": 105},  # Disagreement
+        {"chunk_id": "c3", "topic_id": 103},
+    ]
+
+    f1 = tmp_path / "f1.json"
+    f2 = tmp_path / "f2.json"
+    f1.write_text(json.dumps(ann1), encoding="utf-8")
+    f2.write_text(json.dumps(ann2), encoding="utf-8")
+
+    disagreements = find_disagreements(f1, f2)
+    assert len(disagreements) == 1
+    assert disagreements[0]["chunk_id"] == "c2"
+    assert disagreements[0]["annotator_1_topic_id"] == 102
+    assert disagreements[0]["annotator_2_topic_id"] == 105
+
+
+def test_kappa_fails_on_zero_overlapping_ids(tmp_path):
+    """Verify ValueError is raised when two files have no shared chunk IDs."""
+    f1 = tmp_path / "f1.json"
+    f2 = tmp_path / "f2.json"
+    f1.write_text(json.dumps([{"chunk_id": "c1", "topic_id": 101}]), encoding="utf-8")
+    f2.write_text(json.dumps([{"chunk_id": "c2", "topic_id": 102}]), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="Zero overlapping chunk IDs"):
+        compute_cohen_kappa(f1, f2)
+
+
+def test_real_blind_exports_meet_kappa_target():
+    """Verify real blind independent double-annotation exports meet target threshold."""
+    mariam_path = Path("ml/topics/blind_labels_mariam.json")
+    omar_path = Path("ml/topics/blind_labels_omar.json")
+    config_path = Path("ml/topics/configs/topics_config.yaml")
+
+    assert mariam_path.exists(), f"Mariam export not found at {mariam_path}"
+    assert omar_path.exists(), f"Omar export not found at {omar_path}"
+
+    target = load_kappa_target(config_path)
+    kappa = compute_cohen_kappa(mariam_path, omar_path)
+    disagreements = find_disagreements(mariam_path, omar_path)
+
+    # Real agreement must be high (>= 0.80) but honest (not 1.0000)
+    assert target == 0.80
+    assert kappa >= target
+    assert kappa < 1.0, "Agreement cannot be perfectly identical (1.0000) in real independent annotation"
+    assert len(disagreements) > 0, "Real independent annotation must contain edge-case disagreements"

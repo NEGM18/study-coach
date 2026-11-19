@@ -16,6 +16,10 @@ spot_check_output: "ml/topics/spot_check_30.md"
 cleaning_log_path: "ml/topics/cleaning_log.csv"
 professor_mapping_path: "ml/topics/.professor_mapping.json"
 
+# Inter-annotator agreement settings (Issue #28, #52 / W2-18)
+num_blind_samples: 200
+agreement_kappa_target: 0.80
+
 # Model C inference & baseline settings (Issue #51)
 similarity_cutoff: 0.05
 

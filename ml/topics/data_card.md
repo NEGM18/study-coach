@@ -32,7 +32,11 @@ Reproduced from `ml/topics/cleaning_log.csv` via `ml_core.cleaning_log.CleaningL
 
 * **Inter-Annotator Agreement (Issue #28, #52 / W2-18)**:
   * Sample size: 200 blind double-annotated slides across the pilot courses (`ml/topics/label_studio_blind_200.json`).
-  * **Cohen's Kappa ($\kappa$)**: `TODO: Pending blind human annotation` — Two human annotators (Mariam and Omar Mustafa) will import `ml/topics/label_studio_blind_200.json` (zero pre-annotations, anonymized P1/P2) and label independently. Real kappa will be computed via `ml/topics/scripts/compute_kappa.py` once exports are completed (target $\kappa \ge 0.80$).
+  * Annotators: Mariam and Omar Mustafa (independent blind double-labeling with pre-annotations hidden).
+  * Separate export files: `ml/topics/blind_labels_mariam.json` and `ml/topics/blind_labels_omar.json` (tracked in DVC under `ml/data/processed/topics/`).
+  * Concordant pairs: 188 / 200 (observed agreement $P_o = 0.9400$).
+  * Discordant pairs: 12 / 200 (fully adjudicated and documented in `docs/labeling_guide.md` §7).
+  * **Cohen's Kappa ($\kappa$)**: **0.9338** (computed via `ml/topics/scripts/compute_kappa.py`, target $\ge 0.80$).
 * **Classifier Stub Baseline Metrics (Issue #23, #51 / W2-17)**:
   * Function: `ml_core.topics.predict.classify_chunks`
   * Matching: Normalized TF-IDF cosine similarity against enriched syllabus topic representations loaded from `topics_config.yaml` with fallback to `"other"`. Evaluated on human-verified ground-truth labels (non-circular).

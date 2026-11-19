@@ -8,10 +8,22 @@ import argparse
 import json
 import logging
 from pathlib import Path
+from typing import Any
 
+import yaml
 from sklearn.metrics import cohen_kappa_score
 
 LOGGER = logging.getLogger(__name__)
+
+
+def load_kappa_target(config_path: Path | str = "ml/topics/configs/topics_config.yaml") -> float:
+    """Load target Cohen's kappa agreement threshold from YAML configuration."""
+    path = Path(config_path)
+    if path.exists():
+        with path.open("r", encoding="utf-8") as f:
+            cfg = yaml.safe_load(f) or {}
+            return float(cfg.get("agreement_kappa_target", 0.80))
+    return 0.80
 
 
 def extract_annotations_from_file(file_path: Path | str) -> dict[str, int]:
@@ -63,6 +75,25 @@ def extract_annotations_from_file(file_path: Path | str) -> dict[str, int]:
     return annotations
 
 
+def find_disagreements(file1: Path | str, file2: Path | str) -> list[dict[str, Any]]:
+    """Identify chunk IDs where two separate annotator exports assigned different topic IDs."""
+    ann1 = extract_annotations_from_file(file1)
+    ann2 = extract_annotations_from_file(file2)
+
+    common_ids = sorted(set(ann1.keys()) & set(ann2.keys()))
+    disagreements = []
+    for cid in common_ids:
+        if ann1[cid] != ann2[cid]:
+            disagreements.append(
+                {
+                    "chunk_id": cid,
+                    "annotator_1_topic_id": ann1[cid],
+                    "annotator_2_topic_id": ann2[cid],
+                }
+            )
+    return disagreements
+
+
 def compute_cohen_kappa(file1: Path | str, file2: Path | str) -> float:
     """Compute Cohen's kappa agreement between two separate annotator export files.
 
@@ -112,12 +143,53 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Compute Cohen's kappa agreement from two annotator export files."
     )
-    parser.add_argument("--annotator1", type=str, required=True, help="Path to first annotator JSON export.")
-    parser.add_argument("--annotator2", type=str, required=True, help="Path to second annotator JSON export.")
+    parser.add_argument(
+        "--annotator1",
+        type=str,
+        required=True,
+        help="Path to first annotator JSON export (e.g. Mariam).",
+    )
+    parser.add_argument(
+        "--annotator2",
+        type=str,
+        required=True,
+        help="Path to second annotator JSON export (e.g. Omar Mustafa).",
+    )
+    parser.add_argument(
+        "--config",
+        type=str,
+        default="ml/topics/configs/topics_config.yaml",
+        help="Path to YAML configuration containing agreement_kappa_target.",
+    )
+    parser.add_argument(
+        "--show-disagreements",
+        action="store_true",
+        help="Print list of chunks with discordant annotations.",
+    )
     args = parser.parse_args()
 
+    target = load_kappa_target(args.config)
     kappa = compute_cohen_kappa(args.annotator1, args.annotator2)
-    print(f"Cohen's Kappa Agreement: {kappa:.4f}")
+    disagreements = find_disagreements(args.annotator1, args.annotator2)
+
+    print("=" * 60)
+    print("INTER-ANNOTATOR AGREEMENT REPORT (Issue #52 / W2-18)")
+    print("=" * 60)
+    print(f"Annotator 1 export : {args.annotator1}")
+    print(f"Annotator 2 export : {args.annotator2}")
+    print(f"Target threshold   : >= {target:.2f}")
+    print(f"Cohen's Kappa      : {kappa:.4f}")
+    print(f"Total Disagreements: {len(disagreements)}")
+    print(f"Status             : {'PASS (Target met)' if kappa >= target else 'FAIL (Below target)'}")
+    print("=" * 60)
+
+    if args.show_disagreements and disagreements:
+        print("\nDiscordant Items:")
+        for d in disagreements:
+            print(
+                f"  - [{d['chunk_id']}] Annotator 1: {d['annotator_1_topic_id']} vs "
+                f"Annotator 2: {d['annotator_2_topic_id']}"
+            )
 
 
 if __name__ == "__main__":

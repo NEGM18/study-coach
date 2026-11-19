@@ -337,3 +337,25 @@ For Issue #28 and ongoing quality assurance:
    - $0.65 \le \kappa < 0.80$: Moderate agreement; resolve discrepancies via review meeting.
    - $\kappa < 0.65$: Insufficient consistency; refine labeling definitions and re-annotate.
 
+
+
+---
+
+## 7. Adjudicated Boundary Cases (Issue #28, #52 / W2-18)
+
+During the blind independent double-annotation of 200 randomly sampled chunks by Mariam and Omar Mustafa, 188 chunks were in immediate concordant agreement ($P_o = 0.9400$, $\kappa = 0.9338 \ge 0.80$). The remaining 12 borderline chunks revealed taxonomic edge cases. The annotators met to adjudicate these discrepancies and agreed upon the following definitive precedence rules:
+
+| Chunk ID | Mariam | Omar Mustafa | Final Agreed | Adjudication Rule & Rationale |
+|---|---|---|---|---|
+| `c_os_l205_s28` | `203` (Threads) | `204` (CPU Scheduling) | **`204`** | **Thread Scheduling Context**: When thread execution models (user vs. kernel threads, PCS vs. SCS) are presented in the context of CPU scheduling algorithms (Chapter 5), classify as `204` (CPU Scheduling) rather than general `203` (Threads and Concurrency). |
+| `c_os_l205_s29` | `203` (Threads) | `204` (CPU Scheduling) | **`204`** | **Pthread Scheduling API**: API parameters (`PTHREAD_SCOPE_PROCESS` / `PTHREAD_SCOPE_SYSTEM`) governing how threads contend for CPU execution belong to `204`. |
+| `c_os_l206_s18` | `205` (Synchronization) | `206` (Semaphores) | **`206`** | **Explicit Semaphore Mechanism**: When a slide defines the semaphore integer variable and atomic `wait()`/`signal()` primitives, classify as `206` (Semaphores and Monitors) rather than general synchronization concepts (`205`). |
+| `c_os_l206_s27` | `206` (Semaphores) | `205` (Synchronization) | **`205`** | **Classical Synchronization Problems**: Classical multi-process concurrency problems (Bounded Buffer, Readers-Writers, Dining Philosophers) illustrate general process synchronization patterns (`205`), unless the slide solely analyzes semaphore implementation mechanics. |
+| `c_os_l201_s30` | `202` (Processes) | `201` (OS Architecture) | **`201`** | **Introductory Overview vs Specialized Topic**: High-level introductory definitions of processes as units of work in Chapter 1 belong to `201` (OS Architecture and System Calls). Topic `202` is reserved for dedicated process management mechanics (PCB, scheduling queues, context switching). |
+| `c_os_l201_s31` | `202` (Processes) | `201` (OS Architecture) | **`201`** | **OS Subsystem Responsibilities**: Enumerations of general operating system activities in Chapter 1 belong to `201`. |
+| `c_os_l203_s31` | `205` (Synchronization) | `202` (Processes) | **`202`** | **IPC via Message Passing**: Interprocess communication mechanisms (message passing / shared memory) belong to `202` (Processes and Process Management - IPC), distinct from concurrency locks/mutexes (`205`). |
+| `c_os_l208_s57` | `213` (other) | `208` (Main Memory) | **`213`** | **End-of-Chapter Transition Slides**: Minimal transition/closer slides (e.g., 'End of Chapter 8') convey zero examinable syllabus content; per Section 2, they MUST be labeled `"other"` (`213`). |
+| `c_os_l206_s67` | `213` (other) | `205` (Synchronization) | **`213`** | **End-of-Chapter Transition Slides**: Closing transition slides with no conceptual definitions belong to `"other"` (`213`). |
+| `c_os_l209_s71` | `213` (other) | `209` (Virtual Memory) | **`213`** | **End-of-Chapter Transition Slides**: Same rule; closing chapter transition slides belong to `"other"` (`213`). |
+| `c_ai_l304_s01` | `310` (Supervised Learning) | `304` (Adversarial Search) | **`310`** | **Machine Learning Foundations**: Introductory slides summarizing supervised and unsupervised learning foundations belong to `310` (Supervised Learning: Regression and Classification) according to conceptual focus. |
+| `c_ds_l101_s05` | `113` (other) | `101` (Arrays) | **`113`** | **Informal Transition Slides**: Phrases like 'short summary done for today' with no technical depth belong to `"other"` (`113`). |

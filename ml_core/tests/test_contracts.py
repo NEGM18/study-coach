@@ -40,3 +40,22 @@ def test_classify_chunks_returns_one_known_topic_per_chunk():
     assert [p.chunk_id for p in preds] == ["c1", "c2"]
     assert all(isinstance(p, TopicPrediction) and p.topic_id in {1, 2} for p in preds)
     assert all(0.0 <= p.confidence <= 1.0 for p in preds)
+
+
+def test_classify_chunks_accepts_external_config():
+    topics = [Topic(1, 10, "Linked lists"), Topic(2, 10, "Binary trees")]
+    chunks = [
+        Chunk("c1", 10, 3, "a node points to the next node"),
+        Chunk("c2", 10, 4, "left and right child"),
+    ]
+    cfg = {
+        "similarity_cutoff": 0.05,
+        "topic_keywords": {
+            "Linked lists": ["node", "pointer"],
+            "Binary trees": ["tree", "child"],
+        },
+    }
+    preds = classify_chunks(chunks, topics, config=cfg)
+    assert [p.chunk_id for p in preds] == ["c1", "c2"]
+    assert all(isinstance(p, TopicPrediction) and p.topic_id in {1, 2} for p in preds)
+    assert all(0.0 <= p.confidence <= 1.0 for p in preds)

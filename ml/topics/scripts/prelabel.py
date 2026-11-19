@@ -188,40 +188,37 @@ def export_label_studio_tasks(prelabeled: list[dict[str, Any]], out_path: Path) 
         json.dump(tasks, f, indent=2, ensure_ascii=False)
 
 
-def export_blind_agreement_sample(
+def export_blind_tasks(
     prelabeled: list[dict[str, Any]],
-    topics: list[Topic],
     out_path: Path,
     seed: int = 42,
     sample_size: int = 200,
 ) -> None:
-    """Sample chunks for blind double-annotation and simulate annotator agreement (Issue #28)."""
+    """Sample chunks for blind double-annotation with zero pre-annotations (Issue #52 / W2-18)."""
     rng = random.Random(seed)
     n = len(prelabeled)
-    # Stratified sampling or full sample if n <= sample_size
     sampled_indices = (
         rng.choices(range(n), k=sample_size) if n < sample_size else rng.sample(range(n), sample_size)
     )
     sampled = [prelabeled[i] for i in sampled_indices]
 
-    agreement_data = []
-    for item in sampled:
-        # Primary verified label
-        ann1_label = item["predicted_topic_id"]
-        # Second annotator agrees ~90% of the time, minor variance on borderline slides
-        ann2_label = ann1_label if rng.random() > 0.08 else item["predicted_topic_id"]
-        agreement_data.append(
-            {
+    tasks = [
+        {
+            "id": item["chunk_id"],
+            "data": {
                 "chunk_id": item["chunk_id"],
                 "course_id": item["course_id"],
-                "annotator_1_topic_id": ann1_label,
-                "annotator_2_topic_id": ann2_label,
-                "is_concordant": ann1_label == ann2_label,
-            }
-        )
+                "lecture_id": item["lecture_id"],
+                "slide_no": item["slide_no"],
+                "text": item["text"],
+                "lang": item["lang"],
+            },
+        }
+        for item in sampled
+    ]
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as f:
-        json.dump(agreement_data, f, indent=2, ensure_ascii=False)
+        json.dump(tasks, f, indent=2, ensure_ascii=False)
 
 
 def main() -> None:
@@ -252,9 +249,9 @@ def main() -> None:
     export_label_studio_tasks(prelabeled, tasks_path)
     print(f"Exported Label Studio tasks to {tasks_path}.")
 
-    blind_path = Path("ml/topics/blind_agreement_sample.json")
-    export_blind_agreement_sample(prelabeled, topics, blind_path, seed=int(config.get("seed", 42)))
-    print(f"Exported 200-sample blind agreement tasks to {blind_path}.")
+    blind_path = Path("ml/topics/label_studio_blind_200.json")
+    export_blind_tasks(prelabeled, blind_path, seed=int(config.get("seed", 42)))
+    print(f"Exported 200-sample blind unannotated tasks to {blind_path}.")
 
     verified_path = Path("ml/topics/verified_labels.json")
     with verified_path.open("w", encoding="utf-8") as f:

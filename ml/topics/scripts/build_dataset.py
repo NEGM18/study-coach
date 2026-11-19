@@ -1,8 +1,9 @@
-"""Issue #23: Dataset builder for Model C (Topics Classifier).
+"""Issue #23, #51, #52, #53: Dataset builder for Model C (Topics Classifier).
 
-Loads verified labels, computes Cohen's kappa and stub baseline accuracy,
+Loads verified labels, separates human gold topic_id from stub predictions,
+computes honest stub baseline metrics (val/test accuracy, macro-F1, per-course),
 splits 70% train / 15% val / 15% grouped strictly by lecture_id (seed 42),
-and saves app-shaped parquet dataset to ml/data/processed/topics/topics_processed_v1.parquet.
+and saves app-shaped parquet dataset to ml/data/processed/topics/topics_processed_v2.parquet.
 """
 
 import argparse
@@ -10,10 +11,11 @@ import json
 import logging
 import random
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
 import yaml
-from sklearn.metrics import accuracy_score, cohen_kappa_score
+from sklearn.metrics import accuracy_score, f1_score
 
 from ml_core.schemas import Chunk, Topic
 from ml_core.topics.predict import classify_chunks
@@ -33,7 +35,7 @@ EXPECTED_COLUMNS = [
 
 
 def load_verified_chunks(verified_path: Path) -> list[Chunk]:
-    """Load verified labeled chunks."""
+    """Load verified labeled chunks using human-reviewed topic_id."""
     with verified_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
     return [
@@ -44,27 +46,51 @@ def load_verified_chunks(verified_path: Path) -> list[Chunk]:
             text=str(d["text"]),
             slide_no=int(d["slide_no"]) if d.get("slide_no") is not None else None,
             lang=d.get("lang", "ar"),
-            topic_id=int(d["predicted_topic_id"]),
+            topic_id=int(d.get("topic_id", d.get("predicted_topic_id"))),
         )
         for d in data
     ]
 
 
-def compute_inter_annotator_agreement(blind_path: Path) -> float:
-    """Compute Cohen's kappa agreement score on the blind double-annotation sample."""
-    with blind_path.open("r", encoding="utf-8") as f:
-        data = json.load(f)
-    ann1 = [d["annotator_1_topic_id"] for d in data]
-    ann2 = [d["annotator_2_topic_id"] for d in data]
-    return float(cohen_kappa_score(ann1, ann2))
+def evaluate_topic_predictions(
+    y_true: list[int],
+    y_pred: list[int],
+    course_ids: list[int] | None = None,
+) -> dict[str, Any]:
+    """Compute accuracy, macro-F1, and per-course metrics with strict circularity check.
 
+    Fails loudly (raises ValueError) if y_true == y_pred on every row.
+    """
+    if len(y_true) != len(y_pred):
+        raise ValueError(f"Length mismatch: {len(y_true)} gold vs {len(y_pred)} pred")
+    if not y_true:
+        return {"accuracy": 0.0, "macro_f1": 0.0, "per_course": {}}
 
-def evaluate_stub_accuracy(chunks: list[Chunk], topics: list[Topic]) -> float:
-    """Compute baseline accuracy of the deterministic classify_chunks stub."""
-    preds = classify_chunks(chunks, topics)
-    y_true = [c.topic_id for c in chunks]
-    y_pred = [p.topic_id for p in preds]
-    return float(accuracy_score(y_true, y_pred))
+    # STRICT ASSERTION: Fail loudly if predictions are identical to gold on every row
+    if y_true == y_pred:
+        raise ValueError(
+            "Evaluation failure: Model predictions and gold labels are identical across 100% of rows. "
+            "Circular evaluation detected (stub evaluated on its own predictions)."
+        )
+
+    acc = float(accuracy_score(y_true, y_pred))
+    macro_f1 = float(f1_score(y_true, y_pred, average="macro", zero_division=0.0))
+
+    per_course: dict[int, dict[str, float]] = {}
+    if course_ids is not None and len(course_ids) == len(y_true):
+        for cid in sorted(set(course_ids)):
+            c_indices = [i for i, c in enumerate(course_ids) if c == cid]
+            c_true = [y_true[i] for i in c_indices]
+            c_pred = [y_pred[i] for i in c_indices]
+            c_acc = float(accuracy_score(c_true, c_pred)) if c_true else 0.0
+            c_f1 = float(f1_score(c_true, c_pred, average="macro", zero_division=0.0)) if c_true else 0.0
+            per_course[cid] = {"accuracy": c_acc, "macro_f1": c_f1, "count": len(c_indices)}
+
+    return {
+        "accuracy": acc,
+        "macro_f1": macro_f1,
+        "per_course": per_course,
+    }
 
 
 def split_grouped_by_lecture(
@@ -160,6 +186,24 @@ def main() -> None:
         default="ml/topics/configs/topics_config.yaml",
         help="Path to YAML config.",
     )
+    parser.add_argument(
+        "--output",
+        type=str,
+        default="ml/data/processed/topics/topics_processed_v2.parquet",
+        help="Path to output parquet file.",
+    )
+    parser.add_argument(
+        "--annotator1",
+        type=str,
+        default=None,
+        help="Optional path to first annotator JSON export for kappa calculation.",
+    )
+    parser.add_argument(
+        "--annotator2",
+        type=str,
+        default=None,
+        help="Optional path to second annotator JSON export for kappa calculation.",
+    )
     args = parser.parse_args()
 
     with Path(args.config).open("r", encoding="utf-8") as f:
@@ -168,7 +212,6 @@ def main() -> None:
     seed = int(config.get("seed", 42))
 
     verified_path = Path("ml/topics/verified_labels.json")
-    blind_path = Path("ml/topics/blind_agreement_sample.json")
     seed_topics_path = Path("db/seed/course_topics_seed.json")
 
     with seed_topics_path.open("r", encoding="utf-8") as f:
@@ -187,19 +230,49 @@ def main() -> None:
     chunks = load_verified_chunks(verified_path)
     print(f"Loaded {len(chunks)} verified chunks.")
 
-    kappa = compute_inter_annotator_agreement(blind_path)
-    print(f"Cohen's Kappa Agreement: {kappa:.4f}")
+    # Cohen's kappa agreement check
+    if args.annotator1 and args.annotator2:
+        from ml.topics.scripts.compute_kappa import compute_cohen_kappa
 
-    stub_acc = evaluate_stub_accuracy(chunks, topics)
-    print(f"Classifier Stub Accuracy: {stub_acc:.4f}")
+        kappa = compute_cohen_kappa(args.annotator1, args.annotator2)
+        print(f"Cohen's Kappa Agreement: {kappa:.4f}")
+    else:
+        print("Cohen's Kappa Agreement: Pending blind human double-annotation export files (Issue #52)")
 
+    # Partition dataset by lecture_id
     split_map = split_grouped_by_lecture(chunks, seed=seed)
-    out_parquet = Path("ml/data/processed/topics/topics_processed_v1.parquet")
+    out_parquet = Path(args.output)
     df = build_and_save_dataset(chunks, split_map, out_parquet)
 
     print(f"Saved processed dataset to {out_parquet} ({len(df)} rows).")
     print("Split counts:\n", df["split"].value_counts())
     print("Language distribution:\n", df["lang"].value_counts())
+
+    # Honest stub baseline evaluation on val and test splits
+    print("\n" + "=" * 50)
+    print("HONEST CLASSIFIER STUB BASELINE METRICS (Issue #51)")
+    print("=" * 50)
+
+    for split_name in ["val", "test"]:
+        split_chunks = [c for c in chunks if split_map[c.lecture_id] == split_name]
+        split_preds = classify_chunks(split_chunks, topics, config=config)
+        y_true = [c.topic_id for c in split_chunks]
+        y_pred = [p.topic_id for p in split_preds]
+        course_ids = [c.course_id for c in split_chunks]
+
+        metrics = evaluate_topic_predictions(y_true, y_pred, course_ids=course_ids)
+        print(
+            f"\nSplit '{split_name}' ({len(split_chunks)} chunks):"
+            f"\n  Accuracy : {metrics['accuracy']:.4f}"
+            f"\n  Macro-F1 : {metrics['macro_f1']:.4f}"
+            "\n  Per-course breakdown:"
+        )
+        for cid, stats in sorted(metrics["per_course"].items()):
+            course_name = {1: "ds", 2: "os", 3: "ai"}.get(cid, str(cid))
+            print(
+                f"    Course {cid} ({course_name}, n={stats['count']}): "
+                f"Acc = {stats['accuracy']:.4f}, Macro-F1 = {stats['macro_f1']:.4f}"
+            )
 
 
 if __name__ == "__main__":

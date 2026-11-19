@@ -18,6 +18,8 @@
 .env
 .env.*
 !.env.example
+*professor_mapping*.json
+.professor_mapping.json
 
 # Python
 __pycache__/

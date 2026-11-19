@@ -14,7 +14,7 @@ import yaml
 
 from ml_core.cleaning_log import CleaningLog
 from ml_core.schemas import Chunk
-from ml_core.topics.clean import clean_chunks
+from ml_core.topics.clean import anonymize_text, clean_chunks
 from ml_core.topics.extract import extract_file
 
 COURSE_CODE_TO_ID = {
@@ -69,13 +69,14 @@ def generate_spot_check_report(
     original_texts: dict[str, str],
     log: CleaningLog,
     output_path: Path,
+    name_map: dict[str, str] | None = None,
 ) -> None:
     """Generate Markdown report comparing original vs cleaned text side-by-side."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     lines: list[str] = [
         "# Issue #27: Cleaning Pipeline 30-Chunk Spot-Check",
         "",
-        "This report verifies that the 7-step cleaning pipeline eliminates headers, metadata,",
+        "This report verifies that the 8-step cleaning pipeline eliminates headers, metadata,",
         "and OCR noise while preserving genuine lecture content across all pilot courses.",
         "",
         "## Cleaning Audit Trail Summary",
@@ -99,7 +100,13 @@ def generate_spot_check_report(
     )
 
     for idx, c in enumerate(sampled_chunks, start=1):
-        orig = original_texts.get(c.chunk_id, "").strip().replace("\n", " <br> ")
+        raw_orig = original_texts.get(c.chunk_id, "").strip()
+        if name_map:
+            raw_orig = anonymize_text(raw_orig, name_map)
+            for real_name, pid in name_map.items():
+                first_part = real_name.split()[0]
+                raw_orig = re.sub(rf"\b{first_part}@", f"{pid.lower()}@", raw_orig, flags=re.IGNORECASE)
+        orig = raw_orig.replace("\n", " <br> ")
         cleaned = c.text.strip().replace("\n", " <br> ")
         lines.append(f"### Chunk {idx}: `{c.chunk_id}` (Course {c.course_id}, Lang: `{c.lang}`)")
         lines.append(f"* **Original Slide Text**:\n  > {orig}")
@@ -131,7 +138,15 @@ def main() -> None:
     cleaning_log = CleaningLog("topics")
     config["cleaning_log"] = cleaning_log
 
-    print("Executing 7-step cleaning pipeline...")
+    mapping_path = Path(config.get("professor_mapping_path", "ml/topics/.professor_mapping.json"))
+    name_map = {}
+    if mapping_path.exists():
+        import json
+
+        with mapping_path.open("r", encoding="utf-8") as f:
+            name_map = json.load(f)
+
+    print("Executing 8-step cleaning pipeline...")
     cleaned_chunks = clean_chunks(raw_chunks, config)
     print(f"Cleaning complete: {len(raw_chunks)} -> {len(cleaned_chunks)} chunks.")
 
@@ -146,7 +161,7 @@ def main() -> None:
     sampled = rng.sample(cleaned_chunks, sample_size)
 
     report_path = Path(config.get("spot_check_output", "ml/topics/spot_check_30.md"))
-    generate_spot_check_report(sampled, original_texts, cleaning_log, report_path)
+    generate_spot_check_report(sampled, original_texts, cleaning_log, report_path, name_map=name_map)
     print(f"Generated 30-chunk spot-check report at {report_path}.")
 
 

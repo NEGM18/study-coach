@@ -14,4 +14,278 @@ dpi: 200
 num_spot_check_chunks: 30
 spot_check_output: "ml/topics/spot_check_30.md"
 cleaning_log_path: "ml/topics/cleaning_log.csv"
+professor_mapping_path: "ml/topics/.professor_mapping.json"
 
+# Inter-annotator agreement settings (Issue #28, #52 / W2-18)
+num_blind_samples: 200
+agreement_kappa_target: 0.80
+
+# Model C inference & baseline settings (Issue #51)
+similarity_cutoff: 0.05
+
+topic_keywords:
+  Arrays and Dynamic Arrays:
+    - array
+    - elements
+    - index
+    - contiguous
+    - resize
+    - capacity
+    - amortized
+  Linked Lists:
+    - pointer
+    - node
+    - next
+    - prev
+    - head
+    - tail
+    - singly
+    - doubly
+    - circular
+  Stacks and Queues:
+    - stack
+    - queue
+    - lifo
+    - fifo
+    - push
+    - pop
+    - enqueue
+    - dequeue
+    - buffer
+  Recursion and Backtracking:
+    - recursion
+    - recursive
+    - base case
+    - call stack
+    - backtracking
+    - recurrence
+  Trees and Binary Search Trees:
+    - tree
+    - binary
+    - bst
+    - root
+    - child
+    - left
+    - right
+    - traversal
+    - inorder
+  Balanced Trees:
+    - avl
+    - rotation
+    - balance factor
+    - red-black
+    - height
+    - balanced
+  Heaps and Priority Queues:
+    - heap
+    - priority queue
+    - min-heap
+    - max-heap
+    - heapify
+    - sift
+  Hash Tables and Hashing:
+    - hash
+    - bucket
+    - collision
+    - chaining
+    - probing
+    - load factor
+    - table
+  Graphs and Graph Traversals:
+    - graph
+    - vertex
+    - vertices
+    - edge
+    - adjacency
+    - bfs
+    - dfs
+    - topological
+  Shortest Paths and Minimum Spanning Trees:
+    - shortest path
+    - dijkstra
+    - spanning tree
+    - mst
+    - kruskal
+    - prim
+  Sorting and Searching Algorithms:
+    - sort
+    - merge sort
+    - quick sort
+    - binary search
+    - partition
+  Asymptotic Analysis and Big-O:
+    - big-o
+    - complexity
+    - growth rate
+    - asymptotic
+    - worst case
+    - omega
+  OS Architecture and System Calls:
+    - kernel
+    - user mode
+    - system call
+    - trap
+    - interrupt
+    - dual mode
+  Processes and Process Management:
+    - process
+    - pcb
+    - pid
+    - fork
+    - exec
+    - context switch
+    - state
+  Threads and Concurrency:
+    - thread
+    - concurrency
+    - multithreading
+    - pthreads
+    - tcb
+  CPU Scheduling Algorithms:
+    - scheduling
+    - round robin
+    - quantum
+    - fcfs
+    - sjf
+    - preemption
+    - scheduler
+  Process Synchronization and Mutexes:
+    - critical section
+    - race condition
+    - mutex
+    - synchronization
+    - lock
+  Semaphores and Monitors:
+    - semaphore
+    - monitor
+    - wait
+    - signal
+    - condition variable
+  Deadlocks:
+    - deadlock
+    - banker
+    - safe state
+    - coffman
+    - circular wait
+    - avoidance
+  Main Memory Management and Paging:
+    - paging
+    - page table
+    - frame
+    - tlb
+    - fragmentation
+    - memory
+  Virtual Memory and Page Replacement:
+    - virtual memory
+    - page fault
+    - replacement
+    - lru
+    - fifo
+    - demand paging
+  File System Interface and Implementation:
+    - file system
+    - inode
+    - directory
+    - block
+    - journaling
+  Mass-Storage and Disk Scheduling:
+    - disk
+    - storage
+    - raid
+    - ssd
+    - scan
+    - sstf
+    - seek time
+  I/O Systems and Device Management:
+    - io
+    - device
+    - dma
+    - polling
+    - controller
+  Intelligent Agents and Search:
+    - agent
+    - peas
+    - environment
+    - rational
+    - sensors
+    - actuators
+  Uninformed Search:
+    - uninformed
+    - bfs
+    - dfs
+    - uniform cost
+    - depth-first
+    - breadth-first
+  Informed and Heuristic Search:
+    - heuristic
+    - informed
+    - admissible
+    - greedy
+    - evaluation function
+  Adversarial Search and Games:
+    - minimax
+    - alpha-beta
+    - pruning
+    - game
+    - adversarial
+    - zero-sum
+  Constraint Satisfaction Problems:
+    - csp
+    - constraint
+    - domain
+    - variable
+    - arc consistency
+    - mrv
+  Propositional and First-Order Logic:
+    - logic
+    - propositional
+    - first-order
+    - cnf
+    - resolution
+    - inference
+  Knowledge Representation and Reasoning:
+    - knowledge
+    - semantic network
+    - ontology
+    - forward chaining
+    - backward chaining
+  Classical Planning:
+    - planning
+    - strips
+    - pddl
+    - action
+    - precondition
+    - effect
+  Probabilistic Reasoning and Bayesian Networks:
+    - bayesian
+    - probability
+    - bayes
+    - conditional independence
+    - joint
+  "Supervised Learning: Regression and Classification":
+    - supervised
+    - regression
+    - classification
+    - loss
+    - logistic
+  Unsupervised Learning:
+    - unsupervised
+    - clustering
+    - k-means
+    - pca
+    - dimensionality
+  Neural Networks and Deep Learning:
+    - neural network
+    - deep learning
+    - perceptron
+    - backpropagation
+    - activation
+  other:
+    - syllabus
+    - grading
+    - exam
+    - office hours
+    - website
+    - instructor
+    - rules
+    - schedule

@@ -6,7 +6,7 @@
       "course_id": 3,
       "lecture_id": 301,
       "slide_no": 1,
-      "text": "cs482 artificial intelligence overview welcome to ai and machine learning. instructor: dr. sherif nabil - grading: 25% project, 25% midterm, 50% final.",
+      "text": "cs482 artificial intelligence overview welcome to ai and machine learning. instructor: P2 - grading: 25% project, 25% midterm, 50% final.",
       "lang": "en"
     },
     "predictions": [
@@ -354,7 +354,7 @@
       "course_id": 1,
       "lecture_id": 101,
       "slide_no": 1,
-      "text": "cs201 data structures course info course syllabus and logistics instructor: dr. ahmed hassan - contact: grading: 30% midterm, 30% labs, 40% final exam.",
+      "text": "cs201 data structures course info course syllabus and logistics instructor: P1 - contact: grading: 30% midterm, 30% labs, 40% final exam.",
       "lang": "en"
     },
     "predictions": [
@@ -789,7 +789,7 @@
       "course_id": 1,
       "lecture_id": 104,
       "slide_no": 1,
-      "text": "cs201 lecture 4: hashing and graphs advanced structures and graph theory. instructor: dr. ahmed hassan -",
+      "text": "cs201 lecture 4: hashing and graphs advanced structures and graph theory. instructor: P1 -",
       "lang": "en"
     },
     "predictions": [

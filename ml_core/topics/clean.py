@@ -1,12 +1,14 @@
-"""Cleaning pipeline for lecture text chunks (Issues #26 & #27).
+"""Cleaning pipeline for lecture text chunks (Issues #26 & #27, #53).
 
-Executes a 7-step cleaning sequence recording before/after metrics via CleaningLog.
+Executes an 8-step cleaning sequence recording before/after metrics via CleaningLog.
 """
 
+import json
 import logging
 import re
 from collections import Counter
 from dataclasses import replace
+from pathlib import Path
 from typing import Any
 
 from datasketch import MinHash
@@ -112,6 +114,230 @@ def _normalize_chunks(chunks: list[Chunk]) -> list[Chunk]:
     return [replace(c, text=normalize_for_training(c.text)) for c in chunks]
 
 
+ACADEMIC_TITLE_PATTERN = re.compile(
+    r"(?<!\w)(?P<title>(?:أ\.\s*د\.|ا\.\s*د\.|أستاذ\s+دكتور|د\.|م\.|مهندس)|(?:dr\.|prof\.|eng\.|dr\b|prof\b|eng\b))[^\S\n]*",
+    re.IGNORECASE,
+)
+NAME_WORD_PATTERN = re.compile(r"^[a-zA-Z\u0621-\u064A]+(?:-[a-zA-Z\u0621-\u064A]+)?$")
+NON_NAME_STOPWORDS = {
+    "is",
+    "was",
+    "are",
+    "were",
+    "the",
+    "a",
+    "an",
+    "that",
+    "this",
+    "it",
+    "in",
+    "on",
+    "at",
+    "to",
+    "for",
+    "from",
+    "by",
+    "with",
+    "without",
+    "and",
+    "or",
+    "but",
+    "not",
+    "so",
+    "as",
+    "if",
+    "of",
+    "who",
+    "whom",
+    "which",
+    "what",
+    "when",
+    "where",
+    "why",
+    "how",
+    "has",
+    "have",
+    "had",
+    "do",
+    "does",
+    "did",
+    "can",
+    "could",
+    "should",
+    "would",
+    "may",
+    "might",
+    "must",
+    "will",
+    "shall",
+    "grading",
+    "contact",
+    "email",
+    "office",
+    "hours",
+    "exam",
+    "midterm",
+    "final",
+    "labs",
+    "project",
+    "lecture",
+    "course",
+    "syllabus",
+    "memory",
+    "system",
+    "scheme",
+    "immediately",
+    "said",
+    "means",
+    "stands",
+    "refers",
+    "indicates",
+    "abbreviation",
+    "word",
+    "title",
+    "name",
+    "itself",
+    "called",
+    "about",
+    "before",
+    "after",
+    "today",
+    "tomorrow",
+    "yesterday",
+    "now",
+    "later",
+    "here",
+    "there",
+    "في",
+    "من",
+    "إلى",
+    "على",
+    "عن",
+    "مع",
+    "هذا",
+    "هذه",
+    "ذلك",
+    "تلك",
+    "هو",
+    "هي",
+    "أن",
+    "إن",
+    "كان",
+    "كانت",
+    "ليس",
+    "ليست",
+    "ما",
+    "لا",
+    "لم",
+    "لن",
+    "أو",
+    "ثم",
+    "بل",
+    "لكن",
+    "حيث",
+    "كل",
+    "جميع",
+    "معيد",
+    "معيدة",
+    "أستاذ",
+    "دكتور",
+    "محاضر",
+    "المادة",
+}
+PRE_DETERMINERS = {"the", "a", "an", "your", "my", "our", "their", "his", "her", "this", "that"}
+
+
+def anonymize_text(text: str, name_map: dict[str, str]) -> str:
+    """Detect professor/instructor names following English/Arabic titles and replace with P1, P2..."""
+    result: list[str] = []
+    last_end = 0
+
+    for match in ACADEMIC_TITLE_PATTERN.finditer(text):
+        if match.start() < last_end:
+            continue
+
+        prefix = text[: match.start()].rstrip()
+        prev_word = prefix.split()[-1].lower() if prefix.split() else ""
+        if prev_word in PRE_DETERMINERS:
+            result.append(text[last_end : match.end()])
+            last_end = match.end()
+            continue
+
+        start = match.end()
+        remainder = text[start:]
+        words: list[str] = []
+        pos = 0
+
+        while pos < len(remainder) and len(words) < 3:
+            m = re.match(r"^[^\S\n]*([^\s\n,;:|/\-—\(\)\[\]\<\>]+)", remainder[pos:])
+            if not m:
+                break
+            token = m.group(1).rstrip(".,;:!?")
+            if not token or not NAME_WORD_PATTERN.match(token):
+                break
+            norm_token = normalize_for_training(token).lower()
+            if norm_token in NON_NAME_STOPWORDS:
+                break
+            words.append(token)
+            pos += m.end()
+
+        if not words:
+            result.append(text[last_end : match.end()])
+            last_end = match.end()
+        else:
+            name_str = " ".join(words)
+            norm_key = normalize_for_training(name_str).lower()
+            if norm_key not in name_map:
+                name_map[norm_key] = f"P{len(name_map) + 1}"
+            p_id = name_map[norm_key]
+            result.append(text[last_end : match.start()])
+            result.append(p_id)
+            last_end = start + pos
+
+    result.append(text[last_end:])
+    return "".join(result)
+
+
+def anonymize_names(
+    chunks: list[Chunk],
+    mapping_path: str | Path | None = None,
+    name_map: dict[str, str] | None = None,
+) -> list[Chunk]:
+    """Step 5: Detect professor names following English/Arabic titles and replace with P1, P2..."""
+    active_map: dict[str, str] = {}
+    path_obj: Path | None = None
+
+    if mapping_path:
+        path_obj = Path(mapping_path)
+        if path_obj.exists():
+            try:
+                with path_obj.open("r", encoding="utf-8") as f:
+                    active_map = json.load(f)
+            except Exception as exc:
+                LOGGER.warning("Failed to load professor mapping from %s: %s", path_obj, exc)
+
+    if name_map is not None:
+        active_map.update(name_map)
+
+    cleaned: list[Chunk] = []
+    for c in chunks:
+        new_text = anonymize_text(c.text, active_map)
+        cleaned.append(replace(c, text=new_text))
+
+    if path_obj is not None:
+        try:
+            path_obj.parent.mkdir(parents=True, exist_ok=True)
+            with path_obj.open("w", encoding="utf-8") as f:
+                json.dump(active_map, f, indent=2, ensure_ascii=False)
+        except Exception as exc:
+            LOGGER.warning("Failed to write professor mapping to %s: %s", path_obj, exc)
+
+    if name_map is not None:
+        name_map.update(active_map)
+
+    return cleaned
+
+
 def _filter_short_chunks(chunks: list[Chunk], min_words: int) -> list[Chunk]:
     """Step 5: Drop chunks with fewer than min_words."""
     return [c for c in chunks if len(c.text.split()) >= min_words]
@@ -162,12 +388,12 @@ def _detect_language(text: str) -> Lang:
 
 
 def _tag_language(chunks: list[Chunk]) -> list[Chunk]:
-    """Step 7: Tag language on every remaining chunk."""
+    """Step 8: Tag language on every remaining chunk."""
     return [replace(c, lang=_detect_language(c.text)) for c in chunks]
 
 
 def clean_chunks(chunks: list[Chunk], settings: dict[str, Any] | None = None) -> list[Chunk]:
-    """Clean lecture text chunks executing the 7-step pipeline with audit logging."""
+    """Clean lecture text chunks executing the 8-step pipeline with audit logging."""
     cfg = settings or {}
     header_ratio = float(cfg.get("header_repeat_ratio", 0.5))
     min_letter_ratio = float(cfg.get("min_letter_ratio", 0.5))
@@ -195,16 +421,22 @@ def clean_chunks(chunks: list[Chunk], settings: dict[str, Any] | None = None) ->
     s4 = _normalize_chunks(s3)
     log.step("normalize_for_training", s3, s4, "apply shared Arabic/Latin normalization")
 
-    # Step 5: Filter short chunks
-    s5 = _filter_short_chunks(s4, min_words)
-    log.step("filter_short_chunks", s4, s5, f"drop chunks with <{min_words} words")
+    # Step 5: Anonymize professor names
+    mapping_path = cfg.get("professor_mapping_path", "ml/topics/.professor_mapping.json")
+    name_map = cfg.get("professor_name_map")
+    s5 = anonymize_names(s4, mapping_path=mapping_path, name_map=name_map)
+    log.step("anonymize_names", s4, s5, "anonymize instructor names with P1, P2...")
 
-    # Step 6: Deduplicate exact and near-duplicates
-    s6 = _deduplicate_chunks(s5, sim_threshold)
-    log.step("deduplicate_chunks", s5, s6, f"drop duplicates with >={sim_threshold:.0%} similarity")
+    # Step 6: Filter short chunks
+    s6 = _filter_short_chunks(s5, min_words)
+    log.step("filter_short_chunks", s5, s6, f"drop chunks with <{min_words} words")
 
-    # Step 7: Language tagging
-    s7 = _tag_language(s6)
-    log.step("tag_language", s6, s7, "tag language as ar, en, or mixed")
+    # Step 7: Deduplicate exact and near-duplicates
+    s7 = _deduplicate_chunks(s6, sim_threshold)
+    log.step("deduplicate_chunks", s6, s7, f"drop duplicates with >={sim_threshold:.0%} similarity")
 
-    return s7
+    # Step 8: Language tagging
+    s8 = _tag_language(s7)
+    log.step("tag_language", s7, s8, "tag language as ar, en, or mixed")
+
+    return s8

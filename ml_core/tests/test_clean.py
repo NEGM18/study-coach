@@ -274,3 +274,107 @@ def test_no_professor_names_in_committed_topics_files() -> None:
             if re.match(r"^P\d+$", matched_name, re.IGNORECASE):
                 continue
             raise AssertionError(f"Forbidden pattern '{match.group(0)}' found in {file_path}")
+
+
+def test_anonymize_names_english_and_arabic_titles() -> None:
+    """Verify anonymize_names correctly detects English and Arabic titles and replaces with P1, P2..."""
+    chunks = [
+        Chunk("c1", 1, 10, "Course Instructor: Dr. John Smith office in Building B."),
+        Chunk("c2", 2, 20, "Lecture given by Prof. Alan Turing on computation."),
+        Chunk("c3", 1, 10, "Lab engineer: Eng. Omar Negm available on Mondays."),
+        Chunk("c4", 3, 30, "المحاضر: د. أحمد حسن في مدرج 5."),
+        Chunk("c5", 2, 20, "أستاذ المادة: أ.د. شريف نبيل."),
+        Chunk("c6", 1, 10, "مساعد التدريس: م. محمود علي."),
+        # Repeating same professor name gets the exact same identifier
+        Chunk("c7", 1, 10, "Office hours with Dr. John Smith on Tuesdays."),
+    ]
+    name_map: dict[str, str] = {}
+    cleaned = anonymize_names(chunks, name_map=name_map)
+
+    assert len(cleaned) == 7
+    # English title replacements
+    assert "P1" in cleaned[0].text
+    assert "John Smith" not in cleaned[0].text
+    assert "Dr." not in cleaned[0].text
+
+    assert "P2" in cleaned[1].text
+    assert "Alan Turing" not in cleaned[1].text
+    assert "Prof." not in cleaned[1].text
+
+    assert "P3" in cleaned[2].text
+    assert "Omar Negm" not in cleaned[2].text
+    assert "Eng." not in cleaned[2].text
+
+    # Arabic title replacements
+    assert "P4" in cleaned[3].text
+    assert "أحمد حسن" not in cleaned[3].text
+    assert "د." not in cleaned[3].text
+
+    assert "P5" in cleaned[4].text
+    assert "شريف نبيل" not in cleaned[4].text
+
+    assert "P6" in cleaned[5].text
+    assert "محمود علي" not in cleaned[5].text
+
+    # Stable identifier consistency check
+    assert "P1" in cleaned[6].text
+    assert "John Smith" not in cleaned[6].text
+
+
+def test_anonymize_names_at_end_of_line() -> None:
+    """Verify professor names at the end of a line or end of chunk are cleanly anonymized."""
+    chunk1 = Chunk("c1", 1, 10, "Instructor: Dr. Ahmed Hassan\nLecture 1: Introduction to Data Structures")
+    chunk2 = Chunk("c2", 2, 20, "Operating Systems course by Prof. John Doe")
+    chunk3 = Chunk("c3", 3, 30, "مدرس المقرر: د. طارق عمر\nالفصل الأول: مفاهيم الذكاء الاصطناعي")
+
+    name_map: dict[str, str] = {}
+    cleaned = anonymize_names([chunk1, chunk2, chunk3], name_map=name_map)
+
+    assert cleaned[0].text.startswith("Instructor: P1\nLecture 1")
+    assert "Ahmed Hassan" not in cleaned[0].text
+
+    assert cleaned[1].text == "Operating Systems course by P2"
+    assert "John Doe" not in cleaned[1].text
+
+    assert cleaned[2].text.startswith("مدرس المقرر: P3\nالفصل الأول")
+    assert "طارق عمر" not in cleaned[2].text
+
+
+def test_anonymize_names_sentence_with_dr_not_a_name() -> None:
+    """Verify sentences containing 'dr.' in non-name grammatical contexts are NOT anonymized."""
+    chunks = [
+        Chunk("c1", 1, 10, "dr. is an abbreviation for doctor in English dictionaries."),
+        Chunk("c2", 1, 10, "Please consult a dr. if you feel unwell during exams."),
+        Chunk("c3", 1, 10, "The dr. was not present in the medical center."),
+        Chunk("c4", 1, 10, "See dr. at 5pm for health screening."),
+        Chunk("c5", 1, 10, "dr. stands for drive in street mapping notation."),
+    ]
+    name_map: dict[str, str] = {}
+    cleaned = anonymize_names(chunks, name_map=name_map)
+
+    assert len(cleaned) == 5
+    assert cleaned[0].text == "dr. is an abbreviation for doctor in English dictionaries."
+    assert cleaned[1].text == "Please consult a dr. if you feel unwell during exams."
+    assert cleaned[2].text == "The dr. was not present in the medical center."
+    assert cleaned[3].text == "See dr. at 5pm for health screening."
+    assert cleaned[4].text == "dr. stands for drive in street mapping notation."
+    # No spurious professor mappings created
+    assert len(name_map) == 0
+
+
+def test_anonymize_names_persistent_external_mapping(tmp_path) -> None:
+    """Verify professor mapping is saved to and loaded from external JSON file outside Git."""
+    mapping_file = tmp_path / ".professor_mapping.json"
+    chunk1 = Chunk("c1", 1, 10, "Lecturer: Dr. Alice Smith.")
+
+    # First run: writes P1 to mapping_file
+    cleaned1 = anonymize_names([chunk1], mapping_path=mapping_file)
+    assert "P1" in cleaned1[0].text
+    assert mapping_file.exists()
+
+    # Second run: loads mapping_file and assigns P2 to new professor, keeping P1 for Alice
+    chunk2 = Chunk("c2", 1, 10, "Assistant: Dr. Bob White.")
+    chunk3 = Chunk("c3", 1, 10, "Course Lead: Dr. Alice Smith.")
+    cleaned2 = anonymize_names([chunk2, chunk3], mapping_path=mapping_file)
+    assert "P2" in cleaned2[0].text
+    assert "P1" in cleaned2[1].text

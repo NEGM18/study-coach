@@ -1,8 +1,15 @@
-"""Model A: cleaning, app columns, student splits, leak-free features, stub."""
+"""Model A: cleaning, app columns, student splits, leak-free features, training and stub."""
 
+import json
+import pickle
+from pathlib import Path
+
+import numpy as np
 import pandas as pd
 import pytest
+import yaml
 
+from ml.knowledge.scripts.train import run_training, train_candidates
 from ml_core.cleaning_log import CleaningLog
 from ml_core.knowledge.clean import (
     APP_COLUMN_ORDER,
@@ -117,3 +124,82 @@ def test_predict_mastery_is_smoothed_topic_rate() -> None:
     assert predict_mastery([], topic_id=7) == 0.5
     assert predict_mastery(history(), topic_id=7) == pytest.approx(3 / 5)
     assert predict_mastery(history(), topic_id=8) < 0.5
+
+
+@pytest.fixture
+def training_attempts() -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {**attempt.__dict__, "user_id": f"student_{i}", "split": split}
+            for i, split in enumerate(("train", "train", "val", "val", "test"))
+            for attempt in history()
+        ]
+    )
+
+
+@pytest.fixture
+def training_config() -> dict:
+    return {
+        "seed": 42,
+        "models": {
+            "logistic_regression": {"features": ["prior_correct", "prior_wrong"], "params": {}},
+            "hist_gradient_boosting": {
+                "features": ["prior_correct", "prior_wrong", "answers_since_last_on_topic"],
+                "params": {"early_stopping": False, "max_iter": 8, "min_samples_leaf": 2},
+            },
+        },
+    }
+
+
+def test_training_is_deterministic_and_excludes_test_rows(
+    training_attempts: pd.DataFrame, training_config: dict
+) -> None:
+    original = train_candidates(training_attempts, training_config)
+    rerun = train_candidates(training_attempts, training_config)
+    without_test = train_candidates(training_attempts[training_attempts["split"] != "test"], training_config)
+    validation = build_feature_frame(training_attempts[training_attempts["split"] == "val"])
+    assert set(original.validation_auc) == {"logistic_regression", "hist_gradient_boosting"}
+    assert original.train_rows == original.validation_rows == 10
+    assert original.validation_auc == rerun.validation_auc == without_test.validation_auc
+    assert original.features == rerun.features == without_test.features
+    for result in (rerun, without_test):
+        assert result.model_name == original.model_name
+        np.testing.assert_array_equal(
+            original.model.predict_proba(validation[original.features]),
+            result.model.predict_proba(validation[result.features]),
+        )
+
+
+def test_training_rejects_student_overlap(training_attempts: pd.DataFrame, training_config: dict) -> None:
+    training_attempts.loc[training_attempts["user_id"] == "student_2", "user_id"] = "student_0"
+    with pytest.raises(ValueError, match="share student IDs"):
+        train_candidates(training_attempts, training_config)
+
+
+def test_training_writes_loadable_artifacts(
+    tmp_path: Path, training_attempts: pd.DataFrame, training_config: dict
+) -> None:
+    dataset = tmp_path / "attempts.parquet"
+    training_attempts.to_parquet(dataset, index=False)
+    output = tmp_path / "model"
+    config_path = tmp_path / "train.yaml"
+    config_path.write_text(
+        yaml.safe_dump({**training_config, "dataset_path": str(dataset), "output_dir": str(output)}),
+        encoding="utf-8",
+    )
+
+    result = run_training(config_path)
+
+    assert (output / "train.yaml").read_bytes() == config_path.read_bytes()
+    saved_features = json.loads((output / "features.json").read_text(encoding="utf-8"))
+    assert saved_features == result.features
+    metrics = json.loads((output / "metrics.json").read_text(encoding="utf-8"))
+    assert metrics["validation_auc"] == result.validation_auc
+    assert metrics["selected_model"] == result.model_name
+    model = pickle.loads((output / "model.pkl").read_bytes())
+    assert list(model.feature_names_in_) == saved_features
+    validation = build_feature_frame(training_attempts[training_attempts["split"] == "val"])
+    np.testing.assert_array_equal(
+        model.predict_proba(validation[saved_features]),
+        result.model.predict_proba(validation[saved_features]),
+    )

@@ -1,0 +1,17 @@
+seed: 42
+dataset_path: ml/data/processed/knowledge/kt_processed_v1.parquet
+output_dir: ml/data/models/knowledge_model_v1
+
+models:
+  logistic_regression:
+    features: [prior_correct, prior_wrong]
+    params:
+      max_iter: 1000
+  hist_gradient_boosting:
+    features: [prior_correct, prior_wrong, answers_since_last_on_topic, topic_correct_rate]
+    params:
+      learning_rate: 0.07
+      max_iter: 150
+      max_leaf_nodes: 31
+      l2_regularization: 1.0
+      early_stopping: false

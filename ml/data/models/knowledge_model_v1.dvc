@@ -1,0 +1,6 @@
+outs:
+- md5: 8aff65a99c0c6e0ec48af7343b95523d.dir
+  size: 535873
+  nfiles: 5
+  hash: md5
+  path: knowledge_model_v1

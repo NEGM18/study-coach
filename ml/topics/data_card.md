@@ -32,10 +32,22 @@ Reproduced from `ml/topics/cleaning_log.csv` via `ml_core.cleaning_log.CleaningL
 * **Inter-Annotator Agreement (Issue #28)**:
   * Sample size: 200 blind double-annotated slides across the pilot courses.
   * **Cohen's Kappa ($\kappa$)**: `1.0000` (exceeds the $\kappa \ge 0.80$ quality threshold).
-* **Classifier Stub Baseline Accuracy (Issue #23)**:
+* **Classifier Stub Baseline Metrics (Issue #23 & Issue #51)**:
   * Function: `ml_core.topics.predict.classify_chunks`
-  * Matching: Normalized TF-IDF cosine similarity against enriched syllabus topic representations with fallback to `"other"`.
-  * **Stub Accuracy**: `1.0000` on verified test syllabus records.
+  * Matching: Keyword overlap scoring against enriched syllabus topic representations with fallback to `"other"`.
+  * External config: `ml/topics/configs/topics_config.yaml` (`stub.threshold: 0.05`).
+  * Circularity guard: Strict exception raised if gold labels match stub predictions identically on full evaluation splits.
+
+  | Split | Slice / Course | Chunks | Accuracy | Macro-F1 |
+  |---|---|---|---|---|
+  | **Validation** | **Overall** | **87** | **0.5632** | **0.3154** |
+  | Validation | `ds` (Course 1) | 4 | 0.5000 | 0.4167 |
+  | Validation | `os` (Course 2) | 80 | 0.5500 | 0.1380 |
+  | Validation | `ai` (Course 3) | 3 | 1.0000 | 1.0000 |
+  | **Test** | **Overall** | **80** | **0.5625** | **0.3287** |
+  | Test | `ds` (Course 1) | 6 | 0.8333 | 0.7000 |
+  | Test | `os` (Course 2) | 71 | 0.5352 | 0.1317 |
+  | Test | `ai` (Course 3) | 3 | 0.6667 | 0.5556 |
 
 ---
 

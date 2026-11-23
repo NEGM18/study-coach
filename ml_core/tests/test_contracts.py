@@ -40,3 +40,39 @@ def test_classify_chunks_returns_one_known_topic_per_chunk():
     assert [p.chunk_id for p in preds] == ["c1", "c2"]
     assert all(isinstance(p, TopicPrediction) and p.topic_id in {1, 2} for p in preds)
     assert all(0.0 <= p.confidence <= 1.0 for p in preds)
+
+
+def test_classify_chunks_accepts_custom_config_dict():
+    topics = [Topic(1, 10, "Linked lists"), Topic(2, 10, "Binary trees")]
+    chunks = [
+        Chunk("c1", 10, 3, "a pointer points to another node"),
+        Chunk("c2", 10, 4, "root node with left child and right child"),
+    ]
+    custom_config = {
+        "stub": {"threshold": 0.01},
+        "keywords": {
+            "Linked lists": ["pointer", "node"],
+            "Binary trees": ["root", "child"],
+        },
+    }
+    preds = classify_chunks(chunks, topics, config=custom_config)
+    assert len(preds) == 2
+    assert preds[0].chunk_id == "c1"
+    assert preds[0].topic_id == 1
+    assert preds[1].chunk_id == "c2"
+    assert preds[1].topic_id == 2
+
+
+def test_classify_chunks_accepts_config_path(tmp_path):
+    topics = [Topic(1, 10, "Linked lists"), Topic(2, 10, "Binary trees")]
+    chunks = [
+        Chunk("c1", 10, 3, "linked list node pointer"),
+    ]
+    cfg_file = tmp_path / "test_cfg.yaml"
+    cfg_file.write_text(
+        "stub:\n  threshold: 0.02\nkeywords:\n  Linked lists:\n    - pointer\n",
+        encoding="utf-8",
+    )
+    preds = classify_chunks(chunks, topics, config=cfg_file)
+    assert len(preds) == 1
+    assert preds[0].topic_id == 1
